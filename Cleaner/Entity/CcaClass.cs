@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace Cleaner.Entity
 {
     class CcaClass
     {
-        public CcaClassHeader ClassHeader { get; private set; }
-        public List<IClassMember> Members { get; set; } 
-        public List<IMethod> Methods { get; set; } 
+        public ClassHeader Header { get; }
+        public List<ClassMember> Members { get; }
+        public List<CcaMethod> Methods { get; } 
     }
 
-    class CcaClassHeader
+    class ClassHeader : IClassElement
     {
-        public string Name { get; private set; }
-        public List<ClassModifiers> Modifiers { get; private set; }
-        public List<string> HeredityClasses { get; private set; } 
+        public AccessModifiers AccessModifier { get; set; }
+        public string Name { get; set; }
+        public List<ClassModifiers> ClassModifiers { get; set; }
+        public bool IsStatic { get; }
+        public List<CcaClass> HeredityClasses { get; private set; }
     }
 }

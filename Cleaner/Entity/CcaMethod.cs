@@ -3,29 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace Cleaner.Entity
 {
-    interface IMethod
-    {
-        MethodHeader Header { get; set; }
-        MethodBody Body { get; set; }
-    }
-
-    class CcaMethod : IMethod
-    {
-       public MethodHeader Header { get; set; }
-       public MethodBody Body { get; set; }
-    }
-
-    class MethodHeader : IClassMember
+    /// <summary>
+    /// Třída reprezentující metodu.
+    /// </summary>
+    class CcaMethod : IClassElement
     {
         public AccessModifiers AccessModifier { get; set; }
         public string Name { get; set; }
-        public string DataType { get; set; }
-        public bool IsStatic { get;}
-        public List<MethodModifiers> Modifiers { get; set; }
-        public List<CcaVariable> Arguments { get; set; }
-        public CcaVariable ReturnType { get; set; }
+        public string ReturnType { get; set; }
+        public List<MethodModifiers> Modifiers { get; set; } 
+        public List<IVariable> Arguments { get; set; } 
+        public bool IsStatic { get; }
+        public MethodBody Body { get; set; }
     }
 
     class MethodBody
