@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanCodeAnalyzer
+namespace TestApp
 {
-    class Program
+    class Class3 : Class2
     {
-        static void Main(string[] args)
-        {
-        }
     }
 }

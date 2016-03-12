@@ -9,7 +9,7 @@ namespace Cleaner.Entity
     /// <summary>
     /// Definuje vlastnosti třídních proměnných, vlastností a konstant
     /// </summary>
-    abstract class ClassMember : IClassElement, IVariable
+    public abstract class ClassMember : IClassElement, IVariable
     {
         public AccessModifiers AccessModifier { get; set; }
         public string DataType { get; set; }

@@ -9,7 +9,7 @@ namespace Cleaner.Entity
     /// <summary>
     /// Třída reprezentující metodu.
     /// </summary>
-    class CcaMethod : IClassElement
+    public class CcaMethod : IClassElement
     {
         public AccessModifiers AccessModifier { get; set; }
         public string Name { get; set; }
@@ -20,7 +20,7 @@ namespace Cleaner.Entity
         public MethodBody Body { get; set; }
     }
 
-    class MethodBody
+    public class MethodBody
     {
         public string Content { get; set; }
         public int CountLines { get; }

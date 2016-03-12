@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace TestApp
 {
-    public class Class1
+    sealed public class Class1
     {
+        private int _x;
+    }
+
+    public class Class2
+    {
+        public bool Has()
+        {
+            return true;
+        }
+        
     }
 }

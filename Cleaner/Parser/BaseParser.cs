@@ -4,15 +4,24 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace Cleaner.Parser
 {
-    abstract class BaseParser : IParser
+    interface IParser
+    {
+        void Parse();
+    }
+    /// <summary>
+    /// Společný předek všech parserů.
+    /// </summary>
+    public abstract class BaseParser : IParser
     {
         protected SyntaxTree SyntaxTree { get; private set; }
+
+        protected SyntaxNode Root => SyntaxTree.GetRoot();
 
         protected BaseParser(string text)
         {
             SyntaxTree = CSharpSyntaxTree.ParseText(text);
         }
-        
-        public abstract CcaClass Parse();
+
+        public abstract void Parse();
     }
 }

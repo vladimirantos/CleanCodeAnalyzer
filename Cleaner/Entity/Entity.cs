@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace Cleaner.Entity
 {
-    enum AccessModifiers
+    public enum AccessModifiers
     {
         Public, Protected, Internal, Private
     }
 
-    enum ClassModifiers
+    public enum ClassModifiers
     {
         Abstract, Sealed, Internal, Private, Public
     }
 
-    enum MethodModifiers
+    public enum MethodModifiers
     {
         Abstract, Virtual, Sealed, Async, Extern, Override, Static
     }
@@ -25,12 +25,12 @@ namespace Cleaner.Entity
     /// <summary>
     /// Společné rozhraní všech prvků v C#. Zahrnuje třídy, metody, property i proměnné.
     /// </summary>
-    interface IElement
+    public interface IElement
     {
         string Name { get; set; }
     }
 
-    interface IVariable : IElement
+    public interface IVariable : IElement
     {
          string DataType { get; set; }
     }
