@@ -4,22 +4,23 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Cleaner.Utils;
 
 namespace Cleaner.Entity
 {
     public enum AccessModifiers
     {
-        Public, Protected, Internal, Private
+        None, Public, Protected, Internal, Private
     }
 
     public enum ClassModifiers
     {
-        Abstract, Sealed, Internal, Private, Public
+        None, Abstract, Sealed, Static
     }
 
     public enum MethodModifiers
     {
-        Abstract, Virtual, Sealed, Async, Extern, Override, Static
+        None, Abstract, Virtual, Sealed, Async, Extern, Override, Static
     }
 
     /// <summary>

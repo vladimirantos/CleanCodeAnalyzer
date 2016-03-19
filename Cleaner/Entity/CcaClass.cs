@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Cleaner.Utils;
@@ -38,31 +37,26 @@ namespace Cleaner.Entity
         public AccessModifiers AccessModifier { get; set; }
         public string Name { get; set; }
         public List<ClassModifiers> ClassModifiers { get; set; }
-        public bool IsStatic { get; }
+        public bool IsStatic => ClassModifiers.Any(x => x.Equals(Entity.ClassModifiers.Static));
         public List<CcaClass> HeredityClasses { get; private set; }
 
-        public ClassHeader(AccessModifiers accessModifier, string name, List<ClassModifiers> classModifiers, List<CcaClass> heredityClasses, bool isStatic)
+        public ClassHeader(AccessModifiers accessModifier, string name, List<ClassModifiers> classModifiers, List<CcaClass> heredityClasses)
         {
             AccessModifier = accessModifier;
             Name = name;
             ClassModifiers = classModifiers;
             HeredityClasses = heredityClasses;
-            IsStatic = isStatic;
         }
 
         public ClassHeader(AccessModifiers accessModifier, string name)
+            : this(accessModifier, name, new List<ClassModifiers>(), new List<CcaClass>())
         {
             AccessModifier = accessModifier;
             Name = name;
         }
 
-        public ClassHeader(AccessModifiers accessModifier, string name, List<ClassModifiers> classModifiers, List<CcaClass> heredityClasses) 
-            : this(accessModifier, name, classModifiers, heredityClasses, false)
-        {
-        }
-
         public ClassHeader(AccessModifiers accessModifier, string name, List<ClassModifiers> classModifiers)
-            : this(accessModifier, name, classModifiers, new List<CcaClass>(), false)
+            : this(accessModifier, name, classModifiers, new List<CcaClass>())
         {
         }
 

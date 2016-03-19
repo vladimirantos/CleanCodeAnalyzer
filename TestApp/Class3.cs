@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestApp
 {
-    class Class3 : Class2
+    abstract class Class3 : Class2
     {
     }
 }

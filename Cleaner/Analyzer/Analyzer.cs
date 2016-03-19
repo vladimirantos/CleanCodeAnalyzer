@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Cleaner.Analyzer
 {
-    class Analyzer
+    public abstract class Analyzer
     {
+        public abstract void Analyze();
     }
 }

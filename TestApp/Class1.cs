@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace TestApp
 {
-    sealed public class Class1
+    public class Class1
     {
         private int _x;
     }
 
-    public class Class2
+    public abstract class Class2 : Class1
     {
         public bool Has()
         {

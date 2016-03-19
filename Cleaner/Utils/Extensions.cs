@@ -13,9 +13,9 @@ namespace Cleaner.Utils
             return text.All(char.IsUpper);
         }
 
-        public static T ToEnum<T>(this string value, bool ignoreCase = true)
+        public static T ToEnum<T>(this string value)
         {
-            return (T)Enum.Parse(typeof(T), value, ignoreCase);
+            return (T) Enum.Parse(typeof (T), value, true);
         }
     }
 }
