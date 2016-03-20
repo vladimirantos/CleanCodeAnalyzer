@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestApp
+namespace Cleaner
 {
-    abstract class Class3 : Class2
+    class Cca
     {
+
     }
 }

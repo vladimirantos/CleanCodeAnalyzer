@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 using Cleaner.Entity;
 using Cleaner.Utils;
 using Microsoft.CodeAnalysis;
@@ -20,23 +22,19 @@ namespace Cleaner.Parser
 
         }
 
+        public ClassHeaderParser(ClassDeclarationSyntax declarationSyntax) : base(declarationSyntax)
+        {
+            
+        }
+
         public override void Parse()
         {
-            string className = null;
             AccessModifiers accessModifier = AccessModifiers.None;
             ClassModifiers classModifier = ClassModifiers.None;
             List<ClassModifiers> classModifiersList = new List<ClassModifiers>();
-            List<CcaClass> heredityClasses = new List<CcaClass>();
-            IEnumerable<ClassDeclarationSyntax> enumerator = Root.DescendantNodes().OfType<ClassDeclarationSyntax>();
-            
-            foreach (var classDeclarationSyntax in enumerator)
-            {
-                className = classDeclarationSyntax.Identifier.ToString();
-                SyntaxTokenList syntaxTokenList = classDeclarationSyntax.Modifiers;
-                Modifiers(syntaxTokenList, ref accessModifier, ref classModifier);
-                classModifiersList.Add(classModifier);
-            }
-            Result = new ClassHeader(accessModifier, className, classModifiersList, heredityClasses);
+            Modifiers(DeclarationSyntax.Modifiers, ref accessModifier, ref classModifier);
+            classModifiersList.Add(classModifier);
+            Result = new ClassHeader(accessModifier, DeclarationSyntax.Identifier.ToString(), classModifiersList, GetInheritingClasses());
         }
 
         /// <summary>
@@ -52,6 +50,30 @@ namespace Cleaner.Parser
                 else if (ModifiersHelper.IsClassModifier(value))
                     classModifier = ClassModifier(value);
             }
+        }
+
+        /// <summary>
+        /// Vrací seznam tříd od kterých daná třída dědí.
+        /// </summary>
+        private List<string> GetInheritingClasses()
+        {
+            List<string> result = new List<string>();
+            List<string> tokens = DeclarationSyntax.DescendantTokens().Select(x => x.ToString()).ToList();
+            result = tokens.Between(":", "{").ToList();
+            result.RemoveAll(x => x == ",");
+            RemoveGenerics(ref result);
+            return result;
+        }
+
+        /// <summary>
+        /// Odstraní vše mezi špičatými závorkami. Slouží k odstranění generik např IEnumerable<string>
+        /// </summary>
+        private void RemoveGenerics(ref List<string> data)
+        {
+            int start = data.IndexOf("<");
+            int end = data.IndexOf(">");
+            if(start > 0 && end > 0)
+                data.RemoveRange(start, end - start + 1);
         }
     }
 }

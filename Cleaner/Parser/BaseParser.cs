@@ -18,12 +18,18 @@ namespace Cleaner.Parser
         protected SyntaxTree SyntaxTree { get; }
         protected Assembly Assembly { get; }
         protected CompilationUnitSyntax Root => (CompilationUnitSyntax)SyntaxTree.GetRoot();
+        protected TypeDeclarationSyntax DeclarationSyntax { get; }
         protected Type Type => Assembly.GetType();
         
         protected BaseParser(SyntaxTree syntaxTree, Assembly assembly)
         {
             SyntaxTree = syntaxTree;
             Assembly = assembly;
+        }
+
+        protected BaseParser(TypeDeclarationSyntax declarationSyntax)
+        {
+            DeclarationSyntax = declarationSyntax;
         }
 
         /// <summary>

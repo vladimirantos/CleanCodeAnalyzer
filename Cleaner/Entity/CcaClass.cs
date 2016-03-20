@@ -10,7 +10,7 @@ namespace Cleaner.Entity
     public class CcaClass
     {
         public string File { get; private set; }
-        public CcaNamespace Namespace { get; set; }
+        public string Namespace { get; set; }
         public ClassHeader Header { get; }
         public List<ClassMember> Members { get; }
         public List<CcaMethod> Methods { get; }
@@ -23,7 +23,7 @@ namespace Cleaner.Entity
 
         public CcaClass()
         {
-            //todo: odstranit
+            
         }
 
         public override string ToString()
@@ -38,9 +38,10 @@ namespace Cleaner.Entity
         public string Name { get; set; }
         public List<ClassModifiers> ClassModifiers { get; set; }
         public bool IsStatic => ClassModifiers.Any(x => x.Equals(Entity.ClassModifiers.Static));
-        public List<CcaClass> HeredityClasses { get; private set; }
+        public bool IsAbstract => ClassModifiers.Any(x => x.Equals(Entity.ClassModifiers.Abstract));
+        public List<string> HeredityClasses { get; private set; }
 
-        public ClassHeader(AccessModifiers accessModifier, string name, List<ClassModifiers> classModifiers, List<CcaClass> heredityClasses)
+        public ClassHeader(AccessModifiers accessModifier, string name, List<ClassModifiers> classModifiers, List<string> heredityClasses)
         {
             AccessModifier = accessModifier;
             Name = name;
@@ -49,14 +50,14 @@ namespace Cleaner.Entity
         }
 
         public ClassHeader(AccessModifiers accessModifier, string name)
-            : this(accessModifier, name, new List<ClassModifiers>(), new List<CcaClass>())
+            : this(accessModifier, name, new List<ClassModifiers>(), new List<string>())
         {
             AccessModifier = accessModifier;
             Name = name;
         }
 
         public ClassHeader(AccessModifiers accessModifier, string name, List<ClassModifiers> classModifiers)
-            : this(accessModifier, name, classModifiers, new List<CcaClass>())
+            : this(accessModifier, name, classModifiers, new List<string>())
         {
         }
 
@@ -72,11 +73,7 @@ namespace Cleaner.Entity
 
         public string ToFullString()
         {
-            string classModifiers = null;
-            ClassModifiers.ForEach(x => classModifiers += x);
-            string heredity = null;
-            HeredityClasses.ForEach(x => heredity += x);
-            return $"{AccessModifier} {classModifiers} {Name} {heredity}";
+            return $"{AccessModifier} {ClassModifiers.Join()} {Name} : {HeredityClasses.Join()}";
         }
     }
 }
