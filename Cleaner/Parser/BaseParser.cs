@@ -33,7 +33,7 @@ namespace Cleaner.Parser
         }
 
         /// <summary>
-        /// Převede řetězec na modifikátor přístupu. Vyvolává výjimku InvalidArgument.
+        /// Převede řetězec na modifikátor přístupu. Vyvolává výjimku ArgumentException.
         /// Nutno předtím ověřit, jestli je hodnota členem výčtového typu.
         /// </summary>
         /// <param name="value"></param>
@@ -44,7 +44,7 @@ namespace Cleaner.Parser
         }
 
         /// <summary>
-        /// Převede řetězec na modifikátor třídy. Vyvolává výjimku InvalidArgument. 
+        /// Převede řetězec na modifikátor třídy. Vyvolává výjimku ArgumentException. 
         /// Nutno předtím ověřit, jestli je hodnota členem výčtového typu.
         /// </summary>
         /// <param name="value"></param>
@@ -52,6 +52,17 @@ namespace Cleaner.Parser
         protected ClassModifiers ClassModifier(string value)
         {
             return value.ToEnum<ClassModifiers>();
+        }
+
+        /// <summary>
+        /// Převede řetězec na modifikátor metody. Vyvolává výjimku ArgumentException. 
+        /// Nutno předtím ověřit, jestli je hodnota členem výčtového typu.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        protected MethodModifiers MethodModifier(string value)
+        {
+            return value.ToEnum<MethodModifiers>();
         }
 
         public abstract void Parse();

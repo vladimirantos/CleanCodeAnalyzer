@@ -7,18 +7,35 @@ using Cleaner.Utils;
 
 namespace Cleaner.Entity
 {
+    public class LocationInfo
+    {
+        public string Directory { get; }
+        public string File { get; }
+
+        public LocationInfo(string directory, string file)
+        {
+            Directory = directory;
+            File = file;
+        }
+    }
     public class CcaClass
     {
-        public string File { get; private set; }
+        public LocationInfo Location { get; private set; }
         public string Namespace { get; set; }
         public ClassHeader Header { get; }
         public List<ClassMember> Members { get; }
         public List<CcaMethod> Methods { get; }
 
-        public CcaClass(string file, ClassHeader header)
+        public CcaClass(LocationInfo location, ClassHeader header)
         {
-            File = file;
+            Location = location;
             Header = header;
+        }
+
+        public CcaClass(string directory, string file, ClassHeader header)
+            : this(new LocationInfo(directory, file), header)
+        {
+            
         }
 
         public CcaClass()
