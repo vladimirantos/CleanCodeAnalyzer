@@ -18,6 +18,11 @@ namespace Cleaner.Entity
         None, Abstract, Sealed, Static
     }
 
+    public enum PropertyModifiers
+    {
+        Virtual, Static, New, Override, Abstract
+    }
+
     public enum MethodModifiers
     {
         None, Abstract, Virtual, Sealed, Async, Extern, Override, Static
@@ -42,6 +47,6 @@ namespace Cleaner.Entity
     interface IClassElement : IElement
     {
         AccessModifiers AccessModifier { get; set; }
-        bool IsStatic { get; }
+        bool? IsStatic { get; }
     }
 }

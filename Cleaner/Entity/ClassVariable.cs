@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cleaner.Entity
 {
-    class ClassVariable : ClassMember
+    public class ClassVariable : ClassMember
     {
         /// <summary>
         /// Kontroluje, jestli proměnná začíná podtržítkem.
@@ -19,6 +19,12 @@ namespace Cleaner.Entity
 
         public ClassVariable(AccessModifiers accessModifiers, string dataType, string name) : this(accessModifiers, dataType, name, false)
         {
+        }
+
+        public override string ToString()
+        {
+            string access = AccessModifier != AccessModifiers.None ? AccessModifier.ToString() : null;
+            return $"{access} {DataType} {Name}";
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cleaner.Entity
 {
@@ -15,14 +16,30 @@ namespace Cleaner.Entity
         public string Name { get; set; }
         public string ReturnType { get; set; }
         public List<MethodModifiers> Modifiers { get; set; } 
-        public List<IVariable> Arguments { get; set; } 
-        public bool IsStatic { get; }
-        public MethodBody Body { get; set; }
-    }
+        public List<IVariable> Arguments { get; set; }
+        public bool? IsStatic
+        {
+            get { return Modifiers?.Any(x => x.Equals(MethodModifiers.Static)); }
+        }
+        public BlockSyntax Body { get; set; }
 
-    public class MethodBody
-    {
-        public string Content { get; set; }
-        public int CountLines { get; }
+        public CcaMethod(AccessModifiers modifiers, List<MethodModifiers> methodModifiers, string name, List<IVariable> arguments)
+        {
+            AccessModifier = modifiers;
+            Modifiers = Modifiers;
+            Name = name;
+            Arguments = arguments;
+        }
+
+        public CcaMethod(AccessModifiers modifiers, List<MethodModifiers> methodModifiers, string name)
+            : this(modifiers, methodModifiers, name, new List<IVariable>())
+        {
+            
+        }
+
+        public override string ToString()
+        {
+            return $"{AccessModifier} {Name}";
+        }
     }
 }

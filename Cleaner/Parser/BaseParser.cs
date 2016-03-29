@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Cleaner.Entity;
@@ -12,59 +11,31 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cleaner.Parser
-{
+{ 
     public abstract class BaseParser
     {
-        protected SyntaxTree SyntaxTree { get; }
-        protected Assembly Assembly { get; }
-        protected CompilationUnitSyntax Root => (CompilationUnitSyntax)SyntaxTree.GetRoot();
-        protected TypeDeclarationSyntax DeclarationSyntax { get; }
-        protected Type Type => Assembly.GetType();
-        
-        protected BaseParser(SyntaxTree syntaxTree, Assembly assembly)
-        {
-            SyntaxTree = syntaxTree;
-            Assembly = assembly;
-        }
+        public abstract CcaProject Parse();
 
-        protected BaseParser(TypeDeclarationSyntax declarationSyntax)
-        {
-            DeclarationSyntax = declarationSyntax;
-        }
+        protected virtual IParser<ClassHeader> ClassHeaderParser(ClassDeclarationSyntax syntax) => new ClassHeaderParser(syntax);
+        protected virtual IParser<IEnumerable<ClassVariable>> ClassVariableParser(List<VariableDeclarationSyntax> syntax) => new ClassVariableParser(syntax); 
+        protected virtual IParser<IEnumerable<CcaProperty>> PropertyParser(List<PropertyDeclarationSyntax> syntax) => new PropertyParser(syntax); 
+        protected virtual IParser<IEnumerable<CcaMethod>> MethodParser(List<MethodDeclarationSyntax> syntax) => new MethodParser(syntax); 
 
         /// <summary>
-        /// Převede řetězec na modifikátor přístupu. Vyvolává výjimku ArgumentException.
-        /// Nutno předtím ověřit, jestli je hodnota členem výčtového typu.
+        /// Načte kód ze souboru a vytvoří syntaktický strom. 
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected AccessModifiers AccessModifier(string value)
-        {
-            return value.ToEnum<AccessModifiers>();
-        }
+        protected SyntaxTree CreateSyntaxTree(FileInfo file) => CreateSyntaxTree(FileUtils.ReadFile(file.FullName));
 
         /// <summary>
-        /// Převede řetězec na modifikátor třídy. Vyvolává výjimku ArgumentException. 
-        /// Nutno předtím ověřit, jestli je hodnota členem výčtového typu.
+        /// Vytvoří nový syntax tree ze zadaného řetězce.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected ClassModifiers ClassModifier(string value)
-        {
-            return value.ToEnum<ClassModifiers>();
-        }
+        protected SyntaxTree CreateSyntaxTree(string content) => CSharpSyntaxTree.ParseText(content);
+
+        protected CompilationUnitSyntax GetRoot(FileInfo fileInfo) => (CompilationUnitSyntax)CreateSyntaxTree(fileInfo).GetRoot();
 
         /// <summary>
-        /// Převede řetězec na modifikátor metody. Vyvolává výjimku ArgumentException. 
-        /// Nutno předtím ověřit, jestli je hodnota členem výčtového typu.
+        /// Vrací seznam uzlů ze zadaného souboru.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected MethodModifiers MethodModifier(string value)
-        {
-            return value.ToEnum<MethodModifiers>();
-        }
-
-        public abstract void Parse();
+        protected IEnumerable<SyntaxNode> GetNodes(FileInfo fileInfo) => GetRoot(fileInfo).DescendantNodes();
     }
 }

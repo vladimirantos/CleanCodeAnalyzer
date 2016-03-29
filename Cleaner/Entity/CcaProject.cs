@@ -10,7 +10,7 @@ namespace Cleaner.Entity
     {
         public string Name { get; private set; }
         public string Path { get; private set; }
-        public List<CcaClass> Classes { get; set; } = new List<CcaClass>();
+        public List<CcaClass> Classes { get; }
 
         public CcaProject(string name, string path)
         {
@@ -18,9 +18,15 @@ namespace Cleaner.Entity
             Path = path;
         }
 
+        public CcaProject(List<CcaClass> classes)
+        {
+            Classes = classes;
+            //todo: zjistit nazev projektu - kontrola jestli se hlavni namespace jmenuje jako projekt
+        }
+
         public CcaProject()
         {
-            //todo: zjistit nazev projektu - kontrola jestli se hlavni namespace jmenuje jako projekt
+            
         }
     }
 }

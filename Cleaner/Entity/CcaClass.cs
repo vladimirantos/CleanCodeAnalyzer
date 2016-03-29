@@ -23,8 +23,9 @@ namespace Cleaner.Entity
         public LocationInfo Location { get; private set; }
         public string Namespace { get; set; }
         public ClassHeader Header { get; }
-        public List<ClassMember> Members { get; }
-        public List<CcaMethod> Methods { get; }
+        public List<ClassVariable> Variables { get; set; }
+        public List<CcaProperty> Properties { get; set; }
+        public List<CcaMethod> Methods { get; set; }
 
         public CcaClass(LocationInfo location, ClassHeader header)
         {
@@ -47,6 +48,11 @@ namespace Cleaner.Entity
         {
             return $"{Namespace}.{Header}";
         }
+
+        public string ToFullString()
+        {
+            return $"{Namespace} {Header.ToFullString()}";
+        }
     }
 
     public class ClassHeader : IClassElement
@@ -54,16 +60,17 @@ namespace Cleaner.Entity
         public AccessModifiers AccessModifier { get; set; }
         public string Name { get; set; }
         public List<ClassModifiers> ClassModifiers { get; set; }
-        public bool IsStatic => ClassModifiers.Any(x => x.Equals(Entity.ClassModifiers.Static));
+        public bool? IsStatic => ClassModifiers.Any(x => x.Equals(Entity.ClassModifiers.Static));
         public bool IsAbstract => ClassModifiers.Any(x => x.Equals(Entity.ClassModifiers.Abstract));
-        public List<string> HeredityClasses { get; private set; }
+        public List<string> BaseClasses { get; private set; }
+        public string Content { get; set; }
 
-        public ClassHeader(AccessModifiers accessModifier, string name, List<ClassModifiers> classModifiers, List<string> heredityClasses)
+        public ClassHeader(AccessModifiers accessModifier, string name, List<ClassModifiers> classModifiers, List<string> baseClasses)
         {
             AccessModifier = accessModifier;
             Name = name;
             ClassModifiers = classModifiers;
-            HeredityClasses = heredityClasses;
+            BaseClasses = baseClasses;
         }
 
         public ClassHeader(AccessModifiers accessModifier, string name)
@@ -90,7 +97,7 @@ namespace Cleaner.Entity
 
         public string ToFullString()
         {
-            return $"{AccessModifier} {ClassModifiers.Join()} {Name} : {HeredityClasses.Join()}";
+            return $"{AccessModifier} {ClassModifiers.Join()} {Name} : {BaseClasses.Join()}";
         }
     }
 }
