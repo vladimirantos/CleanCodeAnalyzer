@@ -12,8 +12,7 @@ namespace Cleaner.Parser
 {
     class ClassHeaderParser : IParser<ClassHeader>
     {
-        private ClassDeclarationSyntax _syntax;
-
+        private readonly ClassDeclarationSyntax _syntax;
         public ClassHeaderParser(ClassDeclarationSyntax syntax)
         {
             _syntax = syntax;
