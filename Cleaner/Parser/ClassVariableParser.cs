@@ -21,7 +21,10 @@ namespace Cleaner.Parser
         {
             foreach (var variableDeclaration in _variableDeclarationList)
             {
-                yield return new ClassVariable(AccessModifiers.None, variableDeclaration.Type.ToString(), GetName(variableDeclaration.Variables.ToString()));
+                yield return new ClassVariable(AccessModifiers.None, variableDeclaration.Type.ToString(), GetName(variableDeclaration.Variables.ToString()))
+                {
+                    Content = variableDeclaration.ToString()
+                };
             }
         }
 
