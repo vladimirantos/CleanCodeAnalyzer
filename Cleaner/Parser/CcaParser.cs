@@ -13,7 +13,12 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Cleaner.Parser
 {
 
-    public class CcaParser : BaseParser
+    public interface ICcaParser
+    {
+        CcaProject Parse();
+    }
+
+    public class CcaParser : BaseParser, ICcaParser
     {
         private readonly List<FileInfo> _files;
         public CcaParser(List<FileInfo> files)
@@ -23,9 +28,15 @@ namespace Cleaner.Parser
 
         public override CcaProject Parse()
         {
-            List<CcaClass> classes = new List<CcaClass>();
-            _files.ForEach(file => classes.AddRange(ParseClasses(file)));
-            return new CcaProject(classes);
+            List<CcaFile> ccaFiles = new List<CcaFile>();
+            _files.ForEach(file =>
+            {
+                List<CcaClass> classes = new List<CcaClass>();
+                classes.AddRange(ParseClasses(file));
+                ccaFiles.Add(new CcaFile(classes, File.ReadAllText(file.FullName)));
+            });
+            
+            return new CcaProject(ccaFiles);
         }
 
         /// <summary>

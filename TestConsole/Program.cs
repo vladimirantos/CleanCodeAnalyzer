@@ -9,9 +9,9 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using CleanCodeAnalyzer;
+using Cleaner;
 using Cleaner.Entity;
 using Cleaner.Parser;
-using Cleaner.Parser1;
 using Cleaner.Utils;
 using Microsoft.CodeAnalysis;
 
@@ -41,9 +41,10 @@ namespace TestConsole
             //}
 
             string path = @"C:\Users\Vladimír Antoš\Documents\Visual Studio 2015\Projects\CleanCodeAnalyzer\TestApp";
+            Cca cca = Cca.Create(path, Settings.Default.FilePattern, Settings.Default.ForbiddenDir);
+            cca.Start();
             //ParserFactory parserFactory = new ParserFactory(Files(path));
-            Cleaner.Parser.BaseParser parser = new CcaParser(Files(path));
-            CcaProject parsedProject = parser.Parse();
+
             Console.WriteLine("\nKONEC");
             Console.ReadKey();
         }

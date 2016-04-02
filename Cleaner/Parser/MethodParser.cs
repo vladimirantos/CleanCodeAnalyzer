@@ -12,7 +12,7 @@ namespace Cleaner.Parser
 {
     class MethodParser : IParser<IEnumerable<CcaMethod>>
     {
-        private List<MethodDeclarationSyntax> _syntax;
+        private readonly List<MethodDeclarationSyntax> _syntax;
 
         public MethodParser(List<MethodDeclarationSyntax> syntax)
         {

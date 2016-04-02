@@ -17,10 +17,7 @@ namespace Cleaner.Entity
         public string ReturnType { get; set; }
         public List<MethodModifiers> Modifiers { get; set; } 
         public List<IVariable> Arguments { get; set; }
-        public bool? IsStatic
-        {
-            get { return Modifiers?.Any(x => x.Equals(MethodModifiers.Static)); }
-        }
+        public bool? IsStatic => Modifiers?.Any(x => x.Equals(MethodModifiers.Static));
         public BlockSyntax Body { get; set; }
 
         public CcaMethod(AccessModifiers modifiers, List<MethodModifiers> methodModifiers, string name, List<IVariable> arguments)
@@ -37,9 +34,6 @@ namespace Cleaner.Entity
             
         }
 
-        public override string ToString()
-        {
-            return $"{AccessModifier} {Name}";
-        }
+        public override string ToString() => $"{AccessModifier} {Name}";
     }
 }
