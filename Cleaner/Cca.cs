@@ -13,13 +13,8 @@ namespace Cleaner
 {
     public class Cca : CcaBase
     {
-        public ICcaParser Parser { get; }
-
-        public Cca(string path) : base(path)
-        {
-            Parser = new CcaParser(Files);
-        }
-
+        public override ICcaParser Parser => new CcaParser(Files);
+        public Cca(string path) : base(path) { }
         public void Start()
         {
             CcaProject project = Parser.Parse();
