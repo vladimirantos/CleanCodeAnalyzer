@@ -46,7 +46,7 @@ namespace Cleaner.Entity
 
         public override string ToString()
         {
-            return $"{Namespace}.{Header}";
+            return Namespace != null ? $"{Namespace}.{Header}" : Header.ToString();
         }
 
         public string ToFullString()
@@ -63,8 +63,6 @@ namespace Cleaner.Entity
         public bool? IsStatic => ClassModifiers.Any(x => x.Equals(Entity.ClassModifiers.Static));
         public bool IsAbstract => ClassModifiers.Any(x => x.Equals(Entity.ClassModifiers.Abstract));
         public List<string> BaseClasses { get; private set; }
-        public string Content { get; set; }
-
         public ClassHeader(AccessModifiers accessModifier, string name, List<ClassModifiers> classModifiers, List<string> baseClasses)
         {
             AccessModifier = accessModifier;

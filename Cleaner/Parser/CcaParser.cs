@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Cleaner.Entity;
 using Cleaner.Utils;
 using Microsoft.CodeAnalysis;
@@ -12,15 +14,18 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cleaner.Parser
 {
-
+    public delegate void OnParsingHandler(object sender, ParseEvent e);
     public interface ICcaParser
     {
+        event OnParsingHandler OnParsing;
         CcaProject Parse();
     }
 
     public class CcaParser : BaseParser, ICcaParser
     {
+        public event OnParsingHandler OnParsing;
         private readonly List<FileInfo> _files;
+      
         public CcaParser(List<FileInfo> files)
         {
             _files = files;
@@ -52,6 +57,7 @@ namespace Cleaner.Parser
                 CcaClass ccaClass = CreateClass(fileInfo.Directory.Name, fileInfo.Name, classDeclaration);
                 ccaClass.Namespace = nodes.OfType<NamespaceDeclarationSyntax>().First().Name.ToString();
                 classes.Add(ccaClass);
+                Parsing(fileInfo.Name, ccaClass);
             });
             return classes;
         }
@@ -88,5 +94,11 @@ namespace Cleaner.Parser
 
         private List<CcaMethod> GetMethods(List<MethodDeclarationSyntax> syntax)
             => MethodParser(syntax).Parse().ToList();
+
+        protected virtual void Parsing(string file, CcaClass @class)
+        {
+            if(OnParsing != null)
+                OnParsing(this, new ParseEvent(file, @class));
+        } 
     }
 }

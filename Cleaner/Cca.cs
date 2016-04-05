@@ -5,26 +5,19 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Cleaner.Analyzer;
 using Cleaner.Entity;
 using Cleaner.Parser;
 using Cleaner.Utils;
 
 namespace Cleaner
 {
-    public class Cca
+    public class Cca : CcaBase
     {
-        protected ICcaParser Parser { get; set; }
-        protected ICcaAnalyzer Analyzer { get; set; }
-        
-        private Cca(List<FileInfo> files)
-        {
-            Parser = new CcaParser(files);
-        }
+        public ICcaParser Parser { get; }
 
-        public static Cca Create(string path, string filePattern, StringCollection forbiddenDir)
+        public Cca(string path) : base(path)
         {
-            return new Cca(FileUtils.GetAllFiles(path, filePattern, forbiddenDir));
+            Parser = new CcaParser(Files);
         }
 
         public void Start()
