@@ -10,7 +10,7 @@ namespace Cleaner.Utils
 {
     public static class FileUtils
     {
-        public static List<FileInfo> GetAllFiles(string path, string filePattern, StringCollection forbiddenDir)
+        public static List<FileInfo> GetAllFiles(string path, string filePattern, List<string> forbiddenDir)
         {
             List<FileInfo> result = new List<FileInfo>();
                         DirectoryInfo di = new DirectoryInfo(path);
