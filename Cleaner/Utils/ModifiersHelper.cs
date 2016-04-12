@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cleaner.Entity;
+using Cleaner.Utils.Extensions;
 
 namespace Cleaner.Utils
 {

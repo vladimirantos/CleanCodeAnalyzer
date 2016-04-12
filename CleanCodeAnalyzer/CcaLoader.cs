@@ -14,7 +14,7 @@
 //    class CcaLoader
 //    {
 //        private string _path;
-//        private List<FileInfo> _files; 
+//        private ListExtension<FileInfo> _files; 
 //        public CcaLoader(string path)
 //        {
 //            _path = path;
@@ -53,9 +53,9 @@
 //            MessageBox.Show(e.Tmp);
 //        }
 
-//        private List<FileInfo> GetFiles()
+//        private ListExtension<FileInfo> GetFiles()
 //        {
-//            List<FileInfo> result = new List<FileInfo>();
+//            ListExtension<FileInfo> result = new ListExtension<FileInfo>();
 //            DirectoryInfo di = new DirectoryInfo(_path);
 //            FileInfo[] files = di.GetFiles(Settings.Default.FilePattern, SearchOption.AllDirectories);
 //            foreach (FileInfo fileInfo in from fileInfo in files
