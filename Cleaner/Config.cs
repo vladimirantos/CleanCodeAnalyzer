@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cleaner
 {
-    class Config
+    static class Config
     {
         public static readonly string FilePattern = "*.cs";
 
