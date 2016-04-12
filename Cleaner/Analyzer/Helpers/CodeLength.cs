@@ -5,11 +5,12 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cleaner.Analyzer.Results;
 using Cleaner.Utils.Extensions;
 
-namespace Cleaner.Analyzer.Metrics
+namespace Cleaner.Analyzer.Helpers 
 {
-    public class CodeLength
+    public class CodeLength : IAnalyzerHelper<string>
     {
         /// <summary>
         /// Vrací celkový počet řádků.
@@ -19,11 +20,16 @@ namespace Cleaner.Analyzer.Metrics
         /// <summary>
         /// Vrací počet prázdných řádků.
         /// </summary>
-        public int CountSpaceLines(string code) => (from line in code.Lines() where string.IsNullOrWhiteSpace(line) select line).Count();
+        public int CountWhitespaceLines(string code) => (from line in code.Lines() where string.IsNullOrWhiteSpace(line) select line).Count();
 
         /// <summary>
         /// Vrací počet komentářových řádků.
         /// </summary>
         public int CountCommentLines(string code) => (from line in code.Lines() where Regex.IsMatch(line, @"^\s*//|///|/\*|\*/") select line).Count();
+
+        public BaseResult Analyze(string code)
+        {
+            return new CodeLengthResult(CountLines(code), CountCommentLines(code), CountWhitespaceLines(code));
+        }
     }
 }

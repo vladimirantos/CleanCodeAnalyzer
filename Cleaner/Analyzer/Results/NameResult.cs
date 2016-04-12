@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cleaner.Analyzer.Results
 {
-    class NameResult
+    class NameResult : BaseResult
     {
         public int ClassNames { get; }
         public int MethodNames { get; }
