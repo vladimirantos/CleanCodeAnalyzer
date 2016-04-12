@@ -60,10 +60,10 @@ namespace Cleaner.Entity
     {
         public AccessModifiers AccessModifier { get; set; }
         public string Name { get; set; }
-        public List<ClassModifiers> ClassModifiers { get; set; }
+        public List<ClassModifiers> ClassModifiers { get; }
         public bool? IsStatic => ClassModifiers.Any(x => x.Equals(Entity.ClassModifiers.Static));
         public bool IsAbstract => ClassModifiers.Any(x => x.Equals(Entity.ClassModifiers.Abstract));
-        public List<string> BaseClasses { get; private set; }
+        public List<string> BaseClasses { get; }
         public ClassHeader(AccessModifiers accessModifier, string name, List<ClassModifiers> classModifiers, List<string> baseClasses)
         {
             AccessModifier = accessModifier;

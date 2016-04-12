@@ -7,9 +7,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cleaner.Utils.Extensions;
 
-namespace Cleaner.Analyzer
+namespace Cleaner.Analyzer.Metrics
 {
-    public class CodeLengthMetric
+    public class CodeLength
     {
         /// <summary>
         /// Vrací celkový počet řádků.
@@ -19,11 +19,11 @@ namespace Cleaner.Analyzer
         /// <summary>
         /// Vrací počet prázdných řádků.
         /// </summary>
-        public int CountLinesWithoutSpace(string code) => (from line in code.Lines() where string.IsNullOrWhiteSpace(line) select line).Count();
+        public int CountSpaceLines(string code) => (from line in code.Lines() where string.IsNullOrWhiteSpace(line) select line).Count();
 
         /// <summary>
         /// Vrací počet komentářových řádků.
         /// </summary>
-        public int CountCommentsLines(string code) => (from line in code.Lines() where Regex.IsMatch(line, @"^\s*//|///|/\*|\*/") select line).Count();
+        public int CountCommentLines(string code) => (from line in code.Lines() where Regex.IsMatch(line, @"^\s*//|///|/\*|\*/") select line).Count();
     }
 }

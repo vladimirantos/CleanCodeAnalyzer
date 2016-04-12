@@ -10,11 +10,15 @@ namespace Cleaner.Analyzer
     class ClassAnalyzer
     {
         private CcaClass _class;
-        public ClassAnalyzer(CcaClass ccaClass)
+
+        public ClassAnalyzer(CcaClass @class)
         {
-            _class = ccaClass;
+            _class = @class;
         }
 
-
+        public void Analyze()
+        {
+            
+        }
     }
 }
