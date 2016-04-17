@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cleaner.Analyzer.Statistics;
 using Cleaner.Entity;
 
 namespace Cleaner.Analyzer.Tools
 {
-    class Names : IAnalyzerHelper<BaseStatistic>
+    static class Names
     {
-        public int Length(string name) => name.Length;
-
-        public BaseStatistic Analyze(IElement analyzizedObject)
+        private static readonly List<string> _keywords = new List<string>()
         {
-//            return new NameStatistic();
-            return null;
-        }
+            "string", "char", "long", "int", "integer", "float", "double", "array", "list", "dictionary", "stack"
+        }; 
 
-        public BaseStatistic Analyze()
-        {
-            throw new NotImplementedException();
-        }
+        public static bool IsCorrect(string name) => ContainsKeyword(name) && char.IsUpper(name[0]);
+
+        /// <summary>
+        /// Kontroluje, jestli název neobsahuje nějaké klíčové slovo.
+        /// </summary>
+        private static bool ContainsKeyword(string name) => _keywords.Any(x => name.ToLower().Contains(x));
     }
 }
