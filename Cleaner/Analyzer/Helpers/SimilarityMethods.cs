@@ -9,13 +9,15 @@ using Cleaner.Entity;
 namespace Cleaner.Analyzer.Helpers
 {
     /// <summary>
-    /// Kontroluje podobnost metod na základě jejich argumentů.
+    /// Kontroluje podobnost metod na základě jejich argumentů. Dvě metody je možné prohlásit za podobné, pokud mají na 
+    /// stejný počet argumentů a zároveň na stejných pozicích mají argumenty stejného datového typu. V případě, že obě metody
+    /// mají 2/3 a více shodných parametrů, poté jsou podobné.
     /// </summary>
     class SimilarityMethods : IAnalyzerHelper<int>
     {
-        private List<CcaMethod> _methods;
+        private readonly List<CcaMethod> _methods;
 
-        public SimilarityMethods(List<CcaMethod> methods)
+        private SimilarityMethods(List<CcaMethod> methods)
         {
             _methods = methods;
         }
@@ -29,8 +31,12 @@ namespace Cleaner.Analyzer.Helpers
             {
                 for (int j = i + 1; j <= _methods.Count - 1; j++)
                 {
-                    if (Compare(_methods[i], _methods[j]))
-                        result++;
+                    var m1 = _methods[i];
+                    var m2 = _methods[j];
+                    if(IsSameArgumentNumbers(m1, m2))
+                        if (IsSamilar(m1, m2))
+                            result++;
+                        //Console.WriteLine($"{_methods[i]} a {_methods[j]} jsou stejné : "+ IsSamilar(_methods[i], _methods[j]));
                     if (j == 4)
                         break;
                 }
@@ -39,16 +45,22 @@ namespace Cleaner.Analyzer.Helpers
             }
 //            _methods.SelectMany((e, i) =>
 //                _methods.Skip(i + 1).Combinations(k - 1).Select(c => (new[] { e }).Concat(c)));
-            return 0;
+            return result;
         }
 
-        public static int Analyze(List<CcaMethod> methods)
-        {
-            return new SimilarityMethods(methods).Analyze();
-        }
+        public static int Analyze(List<CcaMethod> methods) => new SimilarityMethods(methods).Analyze();
 
-        private bool Compare(CcaMethod m1, CcaMethod m2)
+        /// <summary>
+        /// Ověřuje jestli jsou metody stejné z hlediska počtu argumentů. 
+        /// </summary>
+        /// <param name="m1"></param>
+        /// <param name="m2"></param>
+        /// <returns></returns>
+        private static bool IsSamilar(CcaMethod m1, CcaMethod m2)
         {
+            if (m1.Name.Equals(m2.Name) || m1.Arguments.Count == 0 || m2.Arguments.Count == 0)
+                return false;
+            
             List<IVariable> variables1;
             List<IVariable> variables2;
             if (m1.Arguments.Count < m2.Arguments.Count)
@@ -62,15 +74,16 @@ namespace Cleaner.Analyzer.Helpers
                 variables2 = m1.Arguments;
             }
 
-            int errorCount = 0;  
-
-
-            for (int i = 0; i < variables1.Count; i++)
-            {
-                if (variables1[i].Equals(variables2[i]))
-                    errorCount++;
-            }
-            return false;
+            int errorCount = variables1.Where((t, i) => t.Equals(variables2[i])).Count();
+            var x = variables1.Count * Config.SameArgumentsRate;
+            var result = errorCount >= x;
+            return result;
         }
+
+        /// <summary>
+        /// Kontroluje jestli mají metody stejný (nenulový) počet argumentů.
+        /// </summary>
+        private static bool IsSameArgumentNumbers(CcaMethod m1, CcaMethod m2) 
+            => m1.Arguments.Count > 0 && m2.Arguments.Count > 0 && m1.Arguments.Count == m2.Arguments.Count;
     }
 }
