@@ -11,7 +11,6 @@ namespace Cleaner.Analyzer.Statistics
         public int CountVariables { get; set; }
         public int CountProperties { get; set; }
         public int CountMethods { get; set; }
-        public int CountSimilarityMethods { get; set; }
         public List<MethodStatistic> MethodStatistic { get; set; }
         public int SimilarityMethods { get; set; }
     }

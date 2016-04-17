@@ -8,13 +8,13 @@ namespace Cleaner.Analyzer.Statistics
 {
     public class CodeLengthStatistics : BaseStatistic
     {
-        public int CodeLength { get; }
+        public int Length { get; }
         public int CommentsCount { get; }
         public int WhitespaceCount { get; }
 
-        public CodeLengthStatistics(int codeLength, int commentsCount, int whitespaceCount)
+        public CodeLengthStatistics(int length, int commentsCount, int whitespaceCount)
         {
-            CodeLength = codeLength;
+            Length = length;
             CommentsCount = commentsCount;
             WhitespaceCount = whitespaceCount;
         }
