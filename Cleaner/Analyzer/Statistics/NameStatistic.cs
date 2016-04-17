@@ -4,19 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cleaner.Analyzer.Results
+namespace Cleaner.Analyzer.Statistics
 {
-    class NameResult : BaseResult
+    class NameStatistic : BaseStatistic
     {
         public int ClassNames { get; }
         public int MethodNames { get; }
         public int VariablesNames { get; }
 
-        public NameResult(int classNames, int methodNames, int variablesNames)
+        public NameStatistic(int classNames, int methodNames, int variablesNames)
         {
             ClassNames = classNames;
             MethodNames = methodNames;
             VariablesNames = variablesNames;
+        }
+
+        public NameStatistic()
+        {
+            //todo: odstranit
         }
     }
 }

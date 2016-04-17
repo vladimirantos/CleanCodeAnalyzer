@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cleaner.Analyzer.Results
+namespace Cleaner.Analyzer.Statistics
 {
-    class CodeLengthResult : BaseResult
+    class CodeLengthStatistics : BaseStatistic
     {
         public int CodeLength { get; }
         public int CommentsCount { get; }
         public int WhitespaceCount { get; }
 
-        public CodeLengthResult(int codeLength, int commentsCount, int whitespaceCount)
+        public CodeLengthStatistics(int codeLength, int commentsCount, int whitespaceCount)
         {
             CodeLength = codeLength;
             CommentsCount = commentsCount;

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cleaner.Analyzer.Results
+namespace Cleaner.Analyzer.Statistics
 {
-    public class BaseResult
+    public class BaseStatistic
     {
     }
 }
