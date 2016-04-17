@@ -22,6 +22,8 @@ namespace Cleaner.Analyzer
         {
             ClassStatistics statistics = new ClassStatistics()
             {
+                NameCount = _class.Header.Name.Length,
+                IsCorrectName = Names.IsCorrect(_class.Header.Name),
                 CountVariables = _class.Variables.Count,
                 CountProperties = _class.Properties.Count,
                 CountMethods = _class.Methods.Count,
@@ -40,6 +42,8 @@ namespace Cleaner.Analyzer
             {
                 result.Add(new MethodStatistic()
                 {
+                    NameCount = method.Name.Length,
+                    IsCorrectName = Names.IsCorrect(method.Name),
                     CodeLength = (CodeLengthStatistics)CodeLength.Analyze(method.Body.ToString()),
                     CountArguments = method.Arguments.Count
                 });
