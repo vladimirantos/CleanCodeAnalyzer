@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Cleaner.Analyzer.Results;
+using Cleaner.Analyzer.Statistics;
 using Cleaner.Entity;
 
 namespace Cleaner.Analyzer.Helpers
 {
-    class Names : IAnalyzerHelper<IElement>
+    class Names : IAnalyzerHelper<BaseStatistic>
     {
         public int Length(string name) => name.Length;
 
-        public BaseResult Analyze(IElement analyzizedObject)
+        public BaseStatistic Analyze(IElement analyzizedObject)
         {
-//            return new NameResult();
+//            return new NameStatistic();
             return null;
+        }
+
+        public BaseStatistic Analyze()
+        {
+            throw new NotImplementedException();
         }
     }
 }
