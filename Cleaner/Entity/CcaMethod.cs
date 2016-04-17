@@ -35,5 +35,23 @@ namespace Cleaner.Entity
         }
 
         public override string ToString() => $"{AccessModifier} {Name}";
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as CcaMethod);
+        }
+
+        public bool Equals(CcaMethod method)
+        {
+            Console.WriteLine("BANIK PICO");
+            foreach (var argument in Arguments)
+            {
+                foreach (var arg in method.Arguments)
+                {
+                    Console.WriteLine($"{argument} : {arg}");
+                }
+            }
+            return true;
+        }
     }
 }
