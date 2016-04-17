@@ -29,6 +29,7 @@ namespace Cleaner.Analyzer
                 CodeLength = (CodeLengthStatistics)CodeLength.Analyze(_class.Content),
                 SimilarityMethods = (int)SimilarityMethods.Analyze(_class.Methods)
             };
+            Console.WriteLine(statistics.SimilarityMethods);
             return statistics;
         }
     }
