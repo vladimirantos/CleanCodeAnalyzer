@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Cleaner.Analyzer.Statistics;
 using Cleaner.Entity;
 
-namespace Cleaner.Analyzer.Helpers
+namespace Cleaner.Analyzer.Tools
 {
     /// <summary>
     /// Kontroluje podobnost metod na základě jejich argumentů. Dvě metody je možné prohlásit za podobné, pokud mají na 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Cleaner.Analyzer.Statistics;
 using Cleaner.Utils.Extensions;
 
-namespace Cleaner.Analyzer.Helpers 
+namespace Cleaner.Analyzer.Tools 
 {
     public class CodeLength : IAnalyzerHelper<BaseStatistic>
     {

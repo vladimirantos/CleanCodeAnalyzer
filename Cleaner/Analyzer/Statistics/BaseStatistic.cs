@@ -8,5 +8,7 @@ namespace Cleaner.Analyzer.Statistics
 {
     public class BaseStatistic
     {
+        public bool IsCorrectName { get; set; }
+        public CodeLengthStatistics CodeLength { get; set; }
     }
 }

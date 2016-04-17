@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Cleaner.Analyzer.Statistics
 {
-    class MethodStatistic
+    public class MethodStatistic : BaseStatistic
     {
-        public bool IsCorrectName { get; set; }
-        public bool CountArguments { get; set; }
-        public CodeLengthStatistics CodeLength { get; set; }
+        public int CountArguments { get; set; }
         public int CyclomaticComplexity { get; set; }
     }
 }

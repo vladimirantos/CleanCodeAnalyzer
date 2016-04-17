@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Cleaner.Analyzer.Statistics;
 using Cleaner.Entity;
 
-namespace Cleaner.Analyzer.Helpers
+namespace Cleaner.Analyzer.Tools
 {
     class Names : IAnalyzerHelper<BaseStatistic>
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Cleaner.Analyzer.Helpers;
+using Cleaner.Analyzer.Tools;
 using Cleaner.Analyzer.Statistics;
 using Cleaner.Entity;
 
@@ -20,17 +20,31 @@ namespace Cleaner.Analyzer
 
         public ClassStatistics Analyze()
         {
-            Console.WriteLine(_class.Header.Name);
             ClassStatistics statistics = new ClassStatistics()
             {
                 CountVariables = _class.Variables.Count,
                 CountProperties = _class.Properties.Count,
                 CountMethods = _class.Methods.Count,
                 CodeLength = (CodeLengthStatistics)CodeLength.Analyze(_class.Content),
-                SimilarityMethods = (int)SimilarityMethods.Analyze(_class.Methods)
+                SimilarityMethods = (int)SimilarityMethods.Analyze(_class.Methods),
+                MethodStatistic = MethodStatistics(_class.Methods)
             };
-            Console.WriteLine(statistics.SimilarityMethods);
+            
             return statistics;
+        }
+
+        private List<MethodStatistic> MethodStatistics(List<CcaMethod> methods)
+        {
+            List<MethodStatistic> result = new List<MethodStatistic>();
+            methods.ForEach(method =>
+            {
+                result.Add(new MethodStatistic()
+                {
+                    CodeLength = (CodeLengthStatistics)CodeLength.Analyze(method.Body.ToString()),
+                    CountArguments = method.Arguments.Count
+                });
+            });
+            return result;
         }
     }
 }

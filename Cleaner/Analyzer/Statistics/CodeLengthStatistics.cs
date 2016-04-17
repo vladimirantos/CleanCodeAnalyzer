@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cleaner.Analyzer.Statistics
 {
-    class CodeLengthStatistics : BaseStatistic
+    public class CodeLengthStatistics : BaseStatistic
     {
         public int CodeLength { get; }
         public int CommentsCount { get; }

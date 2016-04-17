@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Cleaner.Analyzer.Statistics;
 
-namespace Cleaner.Analyzer.Helpers
+namespace Cleaner.Analyzer.Tools
 {
     interface IAnalyzerHelper<T>
     {
