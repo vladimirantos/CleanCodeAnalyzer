@@ -4,21 +4,16 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Cleaner.Analyzer.Results;
+using Cleaner.Analyzer.Statistics;
 using Cleaner.Entity;
 
 namespace Cleaner.Analyzer
 {
-    interface IAnalyzerHelper<T>
-    {
-        BaseResult Analyze(T analyzizedObject);
-    }
-
     class AnalyzerProcess
     {
         private readonly CcaProject _project;
         private ClassAnalyzer _classAnalyzer;
-
+        public List<ClassStatistics> ClassStatistics { get; private set; } = new List<ClassStatistics>();
         public AnalyzerProcess(CcaProject project)
         {
             _project = project;
@@ -31,6 +26,7 @@ namespace Cleaner.Analyzer
                 file.Classes.ForEach(ccaClass =>
                 {
                     _classAnalyzer = new ClassAnalyzer(ccaClass);
+                    ClassStatistics.Add(_classAnalyzer.Analyze());
                 });
             });
         }
