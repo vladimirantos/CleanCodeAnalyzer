@@ -56,6 +56,7 @@ namespace Cleaner.Parser
             {
                 CcaClass ccaClass = CreateClass(fileInfo.Directory.Name, fileInfo.Name, classDeclaration);
                 ccaClass.Namespace = nodes.OfType<NamespaceDeclarationSyntax>().First().Name.ToString();
+                ccaClass.Content = classDeclaration.ToString();
                 classes.Add(ccaClass);
                 Parsing(fileInfo.Name, ccaClass);
             });
