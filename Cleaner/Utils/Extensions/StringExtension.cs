@@ -9,9 +9,21 @@ namespace Cleaner.Utils.Extensions
     static class StringExtension
     {
         /// <summary>
-        /// Kontrola, jestli je řetězec napsán velkými písmeny.
+        /// Kontrola jestli je řetězec napsán velkými písmeny.
         /// </summary>
         public static bool IsUpper(this string text) => text.All(char.IsUpper);
+
+        /// <summary>
+        /// Kontrola jestli řetězec začíná velkým písmenem.
+        /// </summary>
+        public static bool StartsUpper(this string text) => char.IsUpper(text[0]);
+
+        /// <summary>
+        /// Kontrola jestli řetězec začíná malým písmenem.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static bool StartsLower(this string text) => char.IsLower(text[0]);
 
         /// <summary>
         /// Pokusí se převést řetězec na hodnotu výčtového typu. 
