@@ -29,7 +29,9 @@ namespace Cleaner.Analyzer
                 CountMethods = _class.Methods.Count,
                 CodeLength = (CodeLengthStatistics)CodeLength.Analyze(_class.Content),
                 SimilarityMethods = (int)SimilarityMethods.Analyze(_class.Methods),
-                MethodStatistic = MethodStatistics(_class.Methods)
+                MethodStatistics = MethodStatistics(_class.Methods),
+                PropertyStatistics = PropertyStatistics(_class.Properties),
+                VariableStatistics = VariableStatistics(_class.Variables)
             };
             
             return statistics;
@@ -50,5 +52,34 @@ namespace Cleaner.Analyzer
             });
             return result;
         }
+
+        private List<PropertyStatistic> PropertyStatistics(List<CcaProperty> properties)
+        {
+            List<PropertyStatistic> result = new List<PropertyStatistic>();
+            properties.ForEach(property =>
+            {
+                result.Add(new PropertyStatistic()
+                {
+                    NameCount = property.Name.Length,
+                    IsCorrectName = Names.IsCorrect(property.Name),
+                    CodeLength = (CodeLengthStatistics)CodeLength.Analyze(property.Content)
+                });
+            });
+            return result;
+        }
+
+        private List<VariableStatistics> VariableStatistics(List<ClassVariable> variables)
+        {
+            List<VariableStatistics> result = new List<VariableStatistics>();
+            variables.ForEach(variable =>
+            {
+                result.Add(new VariableStatistics()
+                {
+                    NameCount = variable.Name.Length,
+                    IsCorrectName = Names.IsCorrectVariableName(variable.Name, variable.DataType)
+                });
+            });
+            return result;
+        } 
     }
 }

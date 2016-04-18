@@ -16,7 +16,10 @@ namespace Cleaner.Analyzer.Tools
             "string", "char", "long", "int", "integer", "float", "double", "array", "list", "dictionary", "stack"
         }; 
 
-        public static bool IsCorrect(string name) => ContainsKeyword(name) && char.IsUpper(name[0]);
+        public static bool IsCorrect(string name) => !ContainsKeyword(name) && char.IsUpper(name[0]);
+
+        public static bool IsCorrectVariableName(string name, string dataType)
+            => !name.Contains(dataType) && char.IsLower(name[0]);
 
         /// <summary>
         /// Kontroluje, jestli název neobsahuje nějaké klíčové slovo.
