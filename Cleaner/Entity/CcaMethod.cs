@@ -7,10 +7,12 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cleaner.Entity
 {
+#pragma warning disable CS0659 // 'CcaMethod' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     /// <summary>
     /// Třída reprezentující metodu.
     /// </summary>
     public class CcaMethod : IClassElement
+#pragma warning restore CS0659 // 'CcaMethod' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         public AccessModifiers AccessModifier { get; set; }
         public string Name { get; set; }
@@ -36,19 +38,16 @@ namespace Cleaner.Entity
 
         public override string ToString() => $"{AccessModifier} {Name}";
 
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as CcaMethod);
-        }
+        public override bool Equals(object obj) => Equals(obj as CcaMethod);
 
         public bool Equals(CcaMethod method)
         {
-            Console.WriteLine("BANIK PICO");
             foreach (var argument in Arguments)
             {
                 foreach (var arg in method.Arguments)
                 {
-                    Console.WriteLine($"{argument} : {arg}");
+                    if (!argument.Equals(arg))
+                        return false;
                 }
             }
             return true;

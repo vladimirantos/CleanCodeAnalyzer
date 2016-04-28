@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Cleaner.Entity
 {
+#pragma warning disable CS0659 // 'CcaVariable' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     class CcaVariable : IVariable
+#pragma warning restore CS0659 // 'CcaVariable' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         public string Name { get; set; }
         public string DataType { get; set; }
