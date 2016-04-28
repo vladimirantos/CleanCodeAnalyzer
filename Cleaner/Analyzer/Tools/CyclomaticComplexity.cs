@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cleaner.Analyzer.Tools
 {
-    class CyclomaticComplexity : IAnalyzerHelper<int>
+    internal class CyclomaticComplexity : IAnalyzerHelper<int>
     {
         private string _content;
 
