@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cleaner.Analyzer.Statistics;
 using Cleaner.Entity;
+using Cleaner.Utils.Extensions;
 
 namespace Cleaner.Analyzer.Tools
 {
@@ -18,8 +19,11 @@ namespace Cleaner.Analyzer.Tools
 
         public static bool IsCorrect(string name) => !ContainsKeyword(name) && char.IsUpper(name[0]);
 
-        public static bool IsCorrectVariableName(string name, string dataType)
-            => !name.Contains(dataType) && char.IsLower(name[0]);
+        public static bool IsCorrectVariableName(string name, string dataType) 
+            => !name.Contains(dataType) && name.StartsLower();
+
+        public static bool IsCorrectPropertyName(string name, string dataType)
+            => !name.Contains(dataType) && name.StartsUpper();
 
         /// <summary>
         /// Kontroluje, jestli název neobsahuje nějaké klíčové slovo.

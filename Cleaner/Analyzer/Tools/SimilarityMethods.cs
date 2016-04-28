@@ -86,4 +86,5 @@ namespace Cleaner.Analyzer.Tools
         private static bool IsSameArgumentNumbers(CcaMethod m1, CcaMethod m2) 
             => m1.Arguments.Count > 0 && m2.Arguments.Count > 0 && m1.Arguments.Count == m2.Arguments.Count;
     }
+  
 }
