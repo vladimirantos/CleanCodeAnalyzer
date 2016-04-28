@@ -9,6 +9,9 @@ namespace Cleaner
 {
     static class Config
     {
+        /// <summary>
+        /// Typy souborů, které se budou analyzovat.
+        /// </summary>
         public static readonly string FilePattern = "*.cs";
 
         /// <summary>
@@ -21,5 +24,10 @@ namespace Cleaner
         /// Defaultně 2/3 argumentů musí být stejné.
         /// </summary>
         public static float SameArgumentsRate { get; } = 2/3f;
+
+        /// <summary>
+        /// Cesta k souboru s kalibračními hodnotami.
+        /// </summary>
+        public static string CalibrationDataPath { get; } = "calibrationData.txt";
     }
 }
