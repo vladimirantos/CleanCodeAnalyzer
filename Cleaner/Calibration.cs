@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cleaner.Analyzer.Statistics;
 using Cleaner.Entity;
+using Cleaner.Utils;
 
 namespace Cleaner
 {
@@ -12,25 +14,34 @@ namespace Cleaner
         void Calibrate();
         void Save(string path);
     }
+
     class Calibration : ICalibration
     {
-        private readonly Cca _cca;
+        private readonly List<ClassStatistics> _statistics;
+        private readonly ConfigurationWriter _calibrationWriter;
 
-        public Calibration(string path)
+        public Calibration(List<ClassStatistics> statistics, string calibrationFilePath)
         {
-            _cca = new Cca(path);
+            _statistics = statistics;
+            _calibrationWriter = ConfigurationFile.Writer(calibrationFilePath);
         }
 
         public void Calibrate()
         {
-            CcaProject project = Parse();
+            _statistics.ForEach(classStatistic =>
+            {
+                
+            });   
         }
 
         public void Save(string path)
         {
-            
+            throw new NotImplementedException();
         }
 
-        private CcaProject Parse() => _cca.Parser.Parse();
+        private void CountAvg(ref int value, ref int count)
+        {
+            
+        }
     }
 }
