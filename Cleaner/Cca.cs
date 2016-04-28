@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cleaner.Analyzer;
+using Cleaner.Analyzer.Statistics;
 using Cleaner.Entity;
 using Cleaner.Parser;
 using Cleaner.Utils;
@@ -15,12 +16,27 @@ namespace Cleaner
     public class Cca : CcaBase
     {
         public override ICcaParser Parser => new CcaParser(Files);
+        public CcaProject Project { get; private set; }
+        public List<ClassStatistics> Statistics { get; private set; }
         public Cca(string path) : base(path) { }
+
         public void Start()
         {
-            CcaProject project = Parser.Parse();
-            AnalyzerProcess ap = new AnalyzerProcess(project);
-            ap.Analyze();
+            Parse().Analyze();
+        }
+
+        private Cca Parse()
+        {
+            Project = Parser.Parse();
+            return this;
+        }
+
+        private Cca Analyze()
+        {
+            CcaAnalyzer analyzer = new CcaAnalyzer(Project);
+            analyzer.Analyze();
+            Statistics = analyzer.ClassStatistics;
+            return this;
         }
     }
 }
