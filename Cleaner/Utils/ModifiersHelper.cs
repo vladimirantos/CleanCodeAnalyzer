@@ -8,7 +8,7 @@ using Cleaner.Utils.Extensions;
 
 namespace Cleaner.Utils
 {
-    public static class ModifiersHelper
+    internal static class ModifiersHelper
     {
         /// <summary>
         /// Kontroluje jestli je parametr value přístupovým modifikátorem.

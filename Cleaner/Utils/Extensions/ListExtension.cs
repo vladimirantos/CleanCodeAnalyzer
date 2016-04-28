@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cleaner.Utils.Extensions
 {
-    static class ListExtension
+    internal static class ListExtension
     {
         /// <summary>
         /// Vrací řetězec hodnot seznamu oddělených zadaným oddělovačem.

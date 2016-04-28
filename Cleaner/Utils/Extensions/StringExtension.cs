@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cleaner.Utils.Extensions
 {
-    static class StringExtension
+    internal static class StringExtension
     {
         /// <summary>
         /// Kontrola jestli je řetězec napsán velkými písmeny.

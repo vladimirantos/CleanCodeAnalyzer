@@ -10,7 +10,7 @@ namespace Cleaner.Utils
     /// <summary>
     /// Pomáhá s určováním, jestli je hodnota členem výčtového typu.
     /// </summary>
-    public static class EnumHelper
+    internal static class EnumHelper
     {
         /// <summary>
         /// Vrací true pokud je value členem výčtového typu zadaného pomocí generiky.
