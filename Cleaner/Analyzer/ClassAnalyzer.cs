@@ -9,7 +9,7 @@ using Cleaner.Entity;
 
 namespace Cleaner.Analyzer
 {
-    class ClassAnalyzer
+    internal class ClassAnalyzer
     {
         private readonly CcaClass _class;
 
@@ -23,7 +23,7 @@ namespace Cleaner.Analyzer
             ClassStatistics statistics = new ClassStatistics()
             {
                 CcaClass = _class,
-                NameCount = _class.Header.Name.Length,
+                NameLength = _class.Header.Name.Length,
                 IsCorrectName = Names.IsCorrect(_class.Header.Name),
                 CountVariables = _class.Variables.Count,
                 CountProperties = _class.Properties.Count,
@@ -45,7 +45,7 @@ namespace Cleaner.Analyzer
             {
                 result.Add(new MethodStatistic()
                 {
-                    NameCount = method.Name.Length,
+                    NameLength = method.Name.Length,
                     IsCorrectName = Names.IsCorrect(method.Name),
                     CodeLength = (CodeLengthStatistics)CodeLength.Analyze(method.Body.ToString()),
                     CountArguments = method.Arguments.Count
@@ -61,7 +61,7 @@ namespace Cleaner.Analyzer
             {
                 result.Add(new PropertyStatistic()
                 {
-                    NameCount = property.Name.Length,
+                    NameLength = property.Name.Length,
                     IsCorrectName = Names.IsCorrectPropertyName(property.Name, property.DataType),
                     CodeLength = (CodeLengthStatistics)CodeLength.Analyze(property.Content)
                 });
@@ -76,7 +76,7 @@ namespace Cleaner.Analyzer
             {
                 result.Add(new VariableStatistics()
                 {
-                    NameCount = variable.Name.Length,
+                    NameLength = variable.Name.Length,
                     IsCorrectName = Names.IsCorrectVariableName(variable.Name, variable.DataType)
                 });
             });
