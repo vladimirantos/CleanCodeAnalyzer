@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cleaner.Parser
 {
-    public class ClassVariableParser : IParser<IEnumerable<ClassVariable>>
+    internal class ClassVariableParser : IParser<IEnumerable<ClassVariable>>
     {
         private readonly List<VariableDeclarationSyntax> _variableDeclarationList;
 

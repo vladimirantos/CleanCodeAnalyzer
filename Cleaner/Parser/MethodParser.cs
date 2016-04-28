@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cleaner.Parser
 {
-    class MethodParser : IParser<IEnumerable<CcaMethod>>
+    internal class MethodParser : IParser<IEnumerable<CcaMethod>>
     {
         private readonly List<MethodDeclarationSyntax> _syntax;
 

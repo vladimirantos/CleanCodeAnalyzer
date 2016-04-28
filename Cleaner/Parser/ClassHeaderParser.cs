@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cleaner.Parser
 {
-    class ClassHeaderParser : IParser<ClassHeader>
+    internal class ClassHeaderParser : IParser<ClassHeader>
     {
         private readonly ClassDeclarationSyntax _syntax;
         public ClassHeaderParser(ClassDeclarationSyntax syntax)

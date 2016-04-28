@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cleaner.Parser
 {
-    class PropertyParser : IParser<IEnumerable<CcaProperty>>
+    internal class PropertyParser : IParser<IEnumerable<CcaProperty>>
     {
         private readonly List<PropertyDeclarationSyntax> _syntax;
 
@@ -19,7 +19,7 @@ namespace Cleaner.Parser
             _syntax = syntax;
         }
 
-        public IEnumerable<CcaProperty> Parse() //
+        public IEnumerable<CcaProperty> Parse()
         {
             foreach (var propertyDeclaration in _syntax)
             {
