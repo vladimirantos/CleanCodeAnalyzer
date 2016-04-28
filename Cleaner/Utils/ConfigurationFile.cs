@@ -10,7 +10,7 @@ namespace Cleaner.Utils
     /// Třída se stará o ukládání a načítání konstant ze souboru.
     /// Konstanty jsou uloženy ve tvaru klíč=hodnota
     /// </summary>
-    public static class ConfigurationFile //todo: private class
+    static class ConfigurationFile //todo: private class
     {
         public static ConfigurationWriter Writer(string path) => new ConfigurationWriter(path);
         public static ConfigurationReader Reader(string path) => new ConfigurationReader(path);
@@ -19,7 +19,7 @@ namespace Cleaner.Utils
     /// <summary>
     /// Třída pro ukládání konfiguračních dat.
     /// </summary>
-    public sealed class ConfigurationWriter //todo internal
+    internal sealed class ConfigurationWriter
     {
         private readonly string _path;
         private readonly StringBuilder _stringBuilder = new StringBuilder();
@@ -53,7 +53,7 @@ namespace Cleaner.Utils
     /// <summary>
     /// Třída pro čtení konfiguračních dat. Získává hodnotu podle zadaného klíče.
     /// </summary>
-    public sealed class ConfigurationReader //todo:internal
+    internal sealed class ConfigurationReader
     {
         private readonly string _path;
         private readonly List<KeyValuePair<string, string>> _config;
