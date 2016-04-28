@@ -22,6 +22,7 @@ namespace Cleaner.Analyzer
         {
             ClassStatistics statistics = new ClassStatistics()
             {
+                CcaClass = _class,
                 NameCount = _class.Header.Name.Length,
                 IsCorrectName = Names.IsCorrect(_class.Header.Name),
                 CountVariables = _class.Variables.Count,
@@ -61,7 +62,7 @@ namespace Cleaner.Analyzer
                 result.Add(new PropertyStatistic()
                 {
                     NameCount = property.Name.Length,
-                    IsCorrectName = Names.IsCorrect(property.Name),
+                    IsCorrectName = Names.IsCorrectPropertyName(property.Name, property.DataType),
                     CodeLength = (CodeLengthStatistics)CodeLength.Analyze(property.Content)
                 });
             });

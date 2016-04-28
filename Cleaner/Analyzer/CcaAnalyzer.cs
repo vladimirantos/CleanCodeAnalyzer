@@ -9,7 +9,12 @@ using Cleaner.Entity;
 
 namespace Cleaner.Analyzer
 {
-    class CcaAnalyzer
+    interface IAnalyzer
+    {
+        List<ClassStatistics> ClassStatistics { get; }
+        void Analyze();
+    }
+    class CcaAnalyzer : IAnalyzer
     {
         private readonly CcaProject _project;
         private ClassAnalyzer _classAnalyzer;
