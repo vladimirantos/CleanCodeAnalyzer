@@ -13,17 +13,20 @@ namespace Cleaner.Utils
         public static List<FileInfo> GetAllFiles(string path, string filePattern, List<string> forbiddenDir)
         {
             List<FileInfo> result = new List<FileInfo>();
-                        DirectoryInfo di = new DirectoryInfo(path);
-                        FileInfo[] files = di.GetFiles(filePattern, SearchOption.AllDirectories);
-                        foreach (FileInfo fileInfo in from fileInfo in files
-                                                      let name = fileInfo.Directory.Name
-                                                      where !forbiddenDir.Contains(name)
-                                                      where !result.Contains(fileInfo)
-                                                      select fileInfo)
-                        {
-                            result.Add(fileInfo);
-                        }
-                        return result;
+            DirectoryInfo di = new DirectoryInfo(path);
+            FileInfo[] files = di.GetFiles(filePattern, SearchOption.AllDirectories);
+            IEnumerable<FileInfo> fileInfos = from fileInfo in files
+                let directoryInfo = fileInfo.Directory
+                where directoryInfo != null
+                let name = directoryInfo.Name
+                where !forbiddenDir.Contains(name)
+                where !result.Contains(fileInfo)
+                select fileInfo;
+            foreach (FileInfo fileInfo in fileInfos)
+            {
+                result.Add(fileInfo);
+            }
+            return result;
         }
 
         public static string ReadFile(string path) => File.ReadAllText(path);
