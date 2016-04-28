@@ -15,17 +15,11 @@ namespace Cleaner.Utils
         /// <summary>
         /// Vrací true pokud je value členem výčtového typu zadaného pomocí generiky.
         /// </summary>
-        public static bool IsEnumItem<T>(string value)
-        {
-            return EnumToList<T>().Any(x => x.Equals(value, StringComparison.OrdinalIgnoreCase));
-        }
+        public static bool IsEnumItem<T>(string value) => EnumToList<T>().Any(x => x.Equals(value, StringComparison.OrdinalIgnoreCase));
 
         /// <summary>
         /// Převede výčtový typ T na seznam řetězců daných názvy prvků výčtového typu.
         /// </summary>
-        public static List<string> EnumToList<T>()
-        {
-            return Enum.GetValues(typeof(T)).Cast<T>().Select(v => v.ToString()).ToList();
-        } 
+        public static List<string> EnumToList<T>() => Enum.GetValues(typeof(T)).Cast<T>().Select(v => v.ToString()).ToList();
     }
 }

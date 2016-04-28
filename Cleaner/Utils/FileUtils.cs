@@ -26,9 +26,8 @@ namespace Cleaner.Utils
                         return result;
         }
 
-        public static string ReadFile(string path)
-        {
-            return File.ReadAllText(path);
-        }
+        public static string ReadFile(string path) => File.ReadAllText(path);
+
+        public static void WriteFile(string path, string content) => File.WriteAllText(path, content);
     }
 }
