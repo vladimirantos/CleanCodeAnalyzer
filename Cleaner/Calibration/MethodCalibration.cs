@@ -12,7 +12,7 @@ namespace Cleaner.Calibration
     {
         public MethodCalibration(ConfigurationWriter writer) : base(writer) { }
 
-        public override void Calibrate(List<MethodStatistic> collection)
+        public override void Calibrate(IEnumerable<MethodStatistic> collection)
         {
             base.Calibrate(collection);
             AddCalibrationValue("METHOD_NAME_LENGTH", m => m.NameLength);

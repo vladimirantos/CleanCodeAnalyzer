@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Cleaner.Analyzer.Statistics;
 using Cleaner.Utils;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cleaner.Calibration
 {
@@ -12,21 +13,25 @@ namespace Cleaner.Calibration
     {
         public CcaCalibration() : base(new ConfigurationWriter()) { }
 
-        public override void Calibrate(List<ClassStatistics> collection)
+        public override void Calibrate(IEnumerable<ClassStatistics> collection)
         {
             base.Calibrate(collection);
-            AddCalibrationValue("CLASS_NAME_LENGTH", cls => cls.NameLength);
-            AddCalibrationValue("CLASS_CORRECT_NAMES", cls => cls.IsCorrectName ? 1 : 0, RoundTwoDecimal);
-            AddCalibrationValue("CLASS_CODE_LINES", cls => cls.CodeLength.Length);
-            AddCalibrationValue("CLASS_COMMENTS_LINES", cls => cls.CodeLength.CommentsCount);
-            AddCalibrationValue("CLASS_WHITESPACE_LINES", cls => cls.CodeLength.WhitespaceCount);
-            AddCalibrationValue("COUNT_VARIABLES", cls => cls.CountVariables);
-            AddCalibrationValue("COUNT_PROPERTIES", cls => cls.CountProperties);
-            AddCalibrationValue("COUNT_METHODS", cls => cls.CountMethods);
-            AddCalibrationValue("COUNT_SIMILARITY_METHODS", cls => cls.SimilarityMethods);
-            
+            ClassCalibrate(Collection);
+            MethodCalibrate(Collection.SelectMany(cls => cls.MethodStatistics));   
+            PropertyCalibrate(Collection.SelectMany(cls => cls.PropertyStatistics));
+            VariableCalibrate(Collection.SelectMany(cls => cls.VariableStatistics));
         }
 
-        private void MethodCalibration(List<MethodStatistic> statistic) => new MethodCalibration(CalibrationWriter).Calibrate(statistic);
+        private void ClassCalibrate(IEnumerable<ClassStatistics>  statistics) 
+            => new ClassCalibration(CalibrationWriter).Calibrate(statistics);
+
+        private void MethodCalibrate(IEnumerable<MethodStatistic> statistic) 
+            => new MethodCalibration(CalibrationWriter).Calibrate(statistic);
+
+        private void PropertyCalibrate(IEnumerable<PropertyStatistic> statistics)
+            => new PropertyCalibration(CalibrationWriter).Calibrate(statistics);
+
+        private void VariableCalibrate(IEnumerable<VariableStatistics> statistics)
+            => new VariableCalibration(CalibrationWriter).Calibrate(statistics);
     }
 }
