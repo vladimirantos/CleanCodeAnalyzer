@@ -24,7 +24,7 @@ namespace Cleaner.Entity
         public LocationInfo Location { get; private set; }
         public string Namespace { get; set; }
         public ClassHeader Header { get; }
-        public List<ClassVariable> Variables { get; set; }
+        public List<Field> Variables { get; set; }
         public List<CcaProperty> Properties { get; set; }
         public List<CcaMethod> Methods { get; set; }
         public string Content { get; set; }

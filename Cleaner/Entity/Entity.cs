@@ -23,6 +23,11 @@ namespace Cleaner.Entity
         Virtual, Static, New, Override, Abstract
     }
 
+    public enum FieldModifiers
+    {
+        None, Static, Readonly, Const, Event, New, Volatile
+    }
+
     public enum MethodModifiers
     {
         None, Abstract, Virtual, Sealed, Async, Extern, Override, Static

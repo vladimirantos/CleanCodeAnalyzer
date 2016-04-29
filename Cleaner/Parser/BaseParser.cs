@@ -17,7 +17,7 @@ namespace Cleaner.Parser
         public abstract CcaProject Parse();
 
         protected virtual IParser<ClassHeader> ClassHeaderParser(ClassDeclarationSyntax syntax) => new ClassHeaderParser(syntax);
-        protected virtual IParser<IEnumerable<ClassVariable>> ClassVariableParser(List<FieldDeclarationSyntax> syntax) => new ClassVariableParser(syntax); 
+        protected virtual IParser<IEnumerable<Field>> FieldParser(List<FieldDeclarationSyntax> syntax) => new FieldParser(syntax); 
         protected virtual IParser<IEnumerable<CcaProperty>> PropertyParser(List<PropertyDeclarationSyntax> syntax) => new PropertyParser(syntax); 
         protected virtual IParser<IEnumerable<CcaMethod>> MethodParser(List<MethodDeclarationSyntax> syntax) => new MethodParser(syntax); 
 

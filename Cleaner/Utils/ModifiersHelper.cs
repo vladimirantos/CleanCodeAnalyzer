@@ -26,6 +26,11 @@ namespace Cleaner.Utils
         public static bool IsMethodModifier(string value) => EnumHelper.IsEnumItem<MethodModifiers>(value);
 
         /// <summary>
+        /// Kontroluje jestli je parametr value modifikátorem třídní proměnné.
+        /// </summary>
+        public static bool IsFieldModifier(string value) => EnumHelper.IsEnumItem<FieldModifiers>(value);
+
+        /// <summary>
         /// Převede řetězec na modifikátor přístupu. Vyvolává výjimku ArgumentException.
         /// Nutno předtím ověřit, jestli je hodnota členem výčtového typu.
         /// </summary>
@@ -54,6 +59,14 @@ namespace Cleaner.Utils
         /// <param name="value"></param>
         /// <returns></returns>
         public static MethodModifiers MethodModifier(string value) => value.ToEnum<MethodModifiers>();
+
+        /// <summary>
+        /// Převede řetězec na modifikátor třídní proměnné. Vyvolává výjimku ArgumentException. 
+        /// Nutno předtím ověřit, jestli je hodnota členem výčtového typu.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static FieldModifiers FieldModifier(string value) => value.ToEnum<FieldModifiers>();
 
     }
 }
