@@ -13,7 +13,7 @@ namespace Cleaner.Calibration
         /// <summary>
         /// Provádí výpočet průměrných hodnot nad metrikou T.
         /// </summary>
-        void Calibrate(List<T> collection);
+        void Calibrate(IEnumerable<T> collection);
 
         void Save(string path);
     }
@@ -22,8 +22,8 @@ namespace Cleaner.Calibration
     {
         protected const int NoneRounding = 0;
         protected const int RoundTwoDecimal = 2;
-        protected ConfigurationWriter CalibrationWriter { get; }
-        private List<T> Collection { get; set; }
+        protected static ConfigurationWriter CalibrationWriter { get; private set; }
+        protected IEnumerable<T> Collection { get; private set; } = new List<T>();
 
         protected BaseCalibration(ConfigurationWriter writer)
         {
@@ -33,7 +33,7 @@ namespace Cleaner.Calibration
         /// <summary>
         /// Provádí výpočet průměrných hodnot nad metrikou T.
         /// </summary>
-        public virtual void Calibrate(List<T> collection) => Collection = collection;
+        public virtual void Calibrate(IEnumerable<T> collection) => Collection = collection;
         
         public void Save(string path) => CalibrationWriter.Save(path);
 
@@ -43,7 +43,7 @@ namespace Cleaner.Calibration
         /// <param name="enumerable">Kolekce nad kterou se vypočte průměr.</param>
         /// <param name="expression">Omezující podmínka pro hodnoty v kolekci.</param>
         /// <param name="roundDecimal">Určí počet desetinných míst na která se bude zaokrouhlovat.</param>
-        protected double Avg(List<T> enumerable, Func<T, int> expression, int roundDecimal)
+        protected double Avg(IEnumerable<T> enumerable, Func<T, int> expression, int roundDecimal)
             => Math.Round(enumerable.Average(expression), roundDecimal);
 
         /// <summary>
@@ -63,9 +63,9 @@ namespace Cleaner.Calibration
         /// <param name="collection">Kolekce nad kterou se vypočte průměr.</param>
         /// <param name="expression">Omezující podmínka pro hodnoty v kolekci.</param>
         /// <param name="roundDecimal">Určí počet desetinných míst na která se bude zaokrouhlovat.</param>
-        protected void AddCalibrationValue(string key, List<T> collection, Func<T, int> expression,
+        protected void AddCalibrationValue(string key, IEnumerable<T> collection, Func<T, int> expression,
             int roundDecimal = NoneRounding)
-            => CalibrationWriter.Add(key, Math.Round(collection.Average(expression), roundDecimal));
+            => CalibrationWriter.Add(key, Avg(collection, expression, roundDecimal));
 
         /// <summary>
         /// Spočítá průměrnou hodnotu pro kolekci zadanou konstruktorem.
