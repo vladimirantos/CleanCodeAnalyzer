@@ -62,12 +62,12 @@ namespace Cleaner.Utils
         /// <summary>
         /// Vrací hodnotu k zadanému klíči. Pokud klíč není nalezen metoda vrací null.
         /// </summary>
-        public string Get(string key)
+        public int? Get(string key)
         {
             foreach (var keyValuePair in _config)
             {
                 if (keyValuePair.Key == key.ToUpper())
-                    return keyValuePair.Value;
+                    return int.Parse(keyValuePair.Value);
             }
             return null;
         }
