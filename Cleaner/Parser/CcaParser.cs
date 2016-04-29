@@ -69,7 +69,7 @@ namespace Cleaner.Parser
             
             CcaClass ccaClass = new CcaClass(directory, file, GetClassHeader(classDeclaration))
             {
-                Variables =  GetClassVariables(memberDeclarationSyntax.ToList()),
+                Variables =  GetClassVariables(memberDeclarationSyntax.OfType<FieldDeclarationSyntax>().ToList()),
                 Properties = GetProperties(memberDeclarationSyntax.OfType<PropertyDeclarationSyntax>().ToList()),
                 Methods = GetMethods(memberDeclarationSyntax.OfType<MethodDeclarationSyntax>().ToList())
             };
@@ -78,17 +78,17 @@ namespace Cleaner.Parser
 
         private ClassHeader GetClassHeader(ClassDeclarationSyntax syntax) => ClassHeaderParser(syntax).Parse();
 
-        private List<ClassVariable> GetClassVariables(List<MemberDeclarationSyntax> memberDeclaration)
-        {
-            List<ClassVariable> result = new List<ClassVariable>();
-            memberDeclaration.ForEach(x =>
-            {
-                result.AddRange(GetClassVariables(x.DescendantNodes().OfType<VariableDeclarationSyntax>().ToList()));
-            });
-            return result;
-        }
+        //private List<ClassVariable> GetClassVariables(List<MemberDeclarationSyntax> memberDeclaration)
+        //{
+        //    List<ClassVariable> result = new List<ClassVariable>();
+        //    memberDeclaration.ForEach(x =>
+        //    {
+        //        result.AddRange(GetClassVariables(x.DescendantNodes().OfType<VariableDeclarationSyntax>().ToList()));
+        //    });
+        //    return result;
+        //}
 
-        private IEnumerable<ClassVariable> GetClassVariables(List<VariableDeclarationSyntax> syntax) => ClassVariableParser(syntax).Parse();
+        private List<ClassVariable> GetClassVariables(List<FieldDeclarationSyntax> syntax) => ClassVariableParser(syntax).Parse().ToList();
 
         private List<CcaProperty> GetProperties(List<PropertyDeclarationSyntax> syntax)
             => PropertyParser(syntax).Parse().ToList();
