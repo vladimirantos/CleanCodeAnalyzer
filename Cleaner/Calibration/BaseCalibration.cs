@@ -22,7 +22,7 @@ namespace Cleaner.Calibration
     {
         protected const int NoneRounding = 0;
         protected const int RoundTwoDecimal = 2;
-        protected static ConfigurationWriter CalibrationWriter { get; private set; }
+        protected ConfigurationWriter CalibrationWriter { get; }
         protected IEnumerable<T> Collection { get; private set; } = new List<T>();
 
         protected BaseCalibration(ConfigurationWriter writer)
