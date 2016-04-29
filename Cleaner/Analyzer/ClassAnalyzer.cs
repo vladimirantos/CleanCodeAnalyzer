@@ -45,6 +45,7 @@ namespace Cleaner.Analyzer
             {
                 result.Add(new MethodStatistic()
                 {
+                    Method = method,
                     NameLength = method.Name.Length,
                     IsCorrectName = Names.IsCorrect(method.Name),
                     CodeLength = (CodeLengthStatistics)CodeLength.Analyze(method.Body.ToString()),
