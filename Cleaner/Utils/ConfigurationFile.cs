@@ -10,7 +10,7 @@ namespace Cleaner.Utils
     /// Třída se stará o ukládání a načítání konstant ze souboru.
     /// Konstanty jsou uloženy ve tvaru klíč=hodnota
     /// </summary>
-    static class ConfigurationFile //todo: private class
+    static class ConfigurationFile
     {
         public static ConfigurationWriter Writer(string path) => new ConfigurationWriter(path);
         public static ConfigurationReader Reader(string path) => new ConfigurationReader(path);
