@@ -21,11 +21,11 @@ namespace Cleaner.Parser
 
         public IEnumerable<CcaMethod> Parse()
         {
+            List<MethodModifiers> modifiers = new List<MethodModifiers>();
             foreach (var methodDeclaration in _syntax)
             {
                 AccessModifiers accessModifier = AccessModifiers.None;
                 MethodModifiers methodModifier = MethodModifiers.None;
-                List<MethodModifiers> modifiers = new List<MethodModifiers>();
                 Modifiers(methodDeclaration.Modifiers, ref accessModifier, ref methodModifier);
                 modifiers.Add(methodModifier);
                 yield return new CcaMethod(accessModifier, modifiers, methodDeclaration.Identifier.ToString())
