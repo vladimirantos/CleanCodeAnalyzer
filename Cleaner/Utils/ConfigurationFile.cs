@@ -12,7 +12,7 @@ namespace Cleaner.Utils
     /// </summary>
     static class ConfigurationFile
     {
-        public static ConfigurationWriter Writer(string path) => new ConfigurationWriter(path);
+        public static ConfigurationWriter Writer() => new ConfigurationWriter();
         public static ConfigurationReader Reader(string path) => new ConfigurationReader(path);
     }
 
@@ -21,12 +21,7 @@ namespace Cleaner.Utils
     /// </summary>
     internal sealed class ConfigurationWriter
     {
-        private readonly string _path;
         private readonly StringBuilder _stringBuilder = new StringBuilder();
-        public ConfigurationWriter(string path)
-        {
-            _path = path;
-        }
 
         /// <summary>
         /// Připraví pro vložení klíč=hodnota.
@@ -47,7 +42,7 @@ namespace Cleaner.Utils
         /// <summary>
         /// Uloží konfiguraci.
         /// </summary>
-        public void Save() => FileUtils.WriteFile(_path, _stringBuilder.ToString());
+        public void Save(string path) => FileUtils.WriteFile(path, _stringBuilder.ToString());
     }
 
     /// <summary>
