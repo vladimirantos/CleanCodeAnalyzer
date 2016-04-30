@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,10 @@ namespace Cleaner.Comparator
             catch (InvalidOperationException ex)
             {
                 throw new CcaException("Configuration file is empty.", ex);
+            }
+            catch (FileNotFoundException ex)
+            {
+                throw new CcaException("Configuration file dont exist", ex);
             }
         }
 
