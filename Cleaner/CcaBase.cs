@@ -12,8 +12,7 @@ namespace Cleaner
     public abstract class CcaBase
     {
         private readonly string _path;
-
-        public abstract ICcaParser Parser { get; }
+        
         protected List<FileInfo> Files => FileUtils.GetAllFiles(_path, Config.FilePattern, Config.ForbiddenDirs); 
 
         protected CcaBase(string path)
