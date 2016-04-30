@@ -7,7 +7,7 @@ using Cleaner.Entity;
 
 namespace Cleaner.Comparator
 {
-    class Result
+    public class Result
     {
         public CcaClass Class { get; }
         public Dictionary<string, int> Errors { get; } = new Dictionary<string, int>();

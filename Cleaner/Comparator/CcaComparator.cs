@@ -8,22 +8,27 @@ using Cleaner.Utils;
 
 namespace Cleaner.Comparator
 {
-    class CcaComparator
+    public interface IComparator
+    {
+        List<Result> Results { get; }
+
+        void Compare(List<ClassStatistics> statistics);
+    }
+
+    class CcaComparator : IComparator
     {
         private readonly ConfigurationReader _configurationReader;
-        private readonly List<ClassStatistics> _statistics;
 
         public List<Result> Results { get; } = new List<Result>();
 
-        public CcaComparator(List<ClassStatistics> statistics, string configurationDataPath)
+        public CcaComparator(string configurationDataPath)
         {
-            _statistics = statistics;
             _configurationReader = ConfigurationFile.Reader(configurationDataPath);
         }
 
-        public void Compare()
+        public void Compare(List<ClassStatistics> statistics)
         {
-            _statistics.ForEach(classStatistic =>
+            statistics.ForEach(classStatistic =>
             {
                 Result result = new Result(classStatistic.CcaClass);
 
