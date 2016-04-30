@@ -70,7 +70,7 @@ namespace Cleaner.Analyzer
             return result;
         }
 
-        private List<VariableStatistics> VariableStatistics(List<ClassVariable> variables)
+        private List<VariableStatistics> VariableStatistics(List<Field> variables)
         {
             List<VariableStatistics> result = new List<VariableStatistics>();
             variables.ForEach(variable =>
