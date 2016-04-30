@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cleaner.Utils.Extensions;
 
 namespace Cleaner.Utils
 {
@@ -66,7 +67,7 @@ namespace Cleaner.Utils
         {
             if (_configData.ContainsKey(key))
                 return _configData[key];
-            return null;
+            throw new ArgumentException($"Key {key} not contains in configuration file.");
         }
 
         private string[] ReadLines()
@@ -83,6 +84,8 @@ namespace Cleaner.Utils
         {
             Dictionary<string, int> result = new Dictionary<string, int>();
             string[] lines = ReadLines();
+            if(lines.IsEmpty())
+                throw new InvalidOperationException("There are no calibration data.");
             foreach (var line in lines)
             {
                 if (line != string.Empty)

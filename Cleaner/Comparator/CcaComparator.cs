@@ -23,7 +23,14 @@ namespace Cleaner.Comparator
 
         public CcaComparator(string configurationDataPath)
         {
-            _configurationReader = ConfigurationFile.Reader(configurationDataPath);
+            try
+            {
+                _configurationReader = ConfigurationFile.Reader(configurationDataPath);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new CcaException("Configuration file is empty.", ex);
+            }
         }
 
         public void Compare(List<ClassStatistics> statistics)
@@ -66,7 +73,17 @@ namespace Cleaner.Comparator
             });
         }
 
-        private bool Compare(string key, int value) => value > _configurationReader.Get(key);
+        private bool Compare(string key, int value)
+        {
+            try
+            {
+                return value > _configurationReader.Get(key);
+            }
+            catch (ArgumentException ex)
+            {
+                throw new CcaException("An error occurred while reading the configuration file.", ex);
+            }
+        } 
 
         private void CompareMethods(List<MethodStatistic> methodStatistics, ref Result result)
         {
