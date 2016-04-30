@@ -26,6 +26,8 @@ namespace Cleaner
 
         public Dictionary<string, int> GetCalibrationData() => new ConfigurationReader(Config.CalibrationDataPath).ConfigData;
 
+        public bool CalibrationDataExists() => File.Exists(Config.CalibrationDataPath);
+
         private CcaFactory Parse(string path)
         {
             ICcaParser parser = new CcaParser(GetFiles(path));
