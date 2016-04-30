@@ -22,7 +22,7 @@ namespace Cleaner
 
         public void Calibrate(string path) => Parse(path).Analyze().Calibration();
 
-        public void Compare(string path) => Parse(path).Analyze().Comparator();
+        public void Analyze(string path) => Parse(path).Analyze().Comparator();
 
         public Dictionary<string, int> GetCalibrationData() => new ConfigurationReader(Config.CalibrationDataPath).ConfigData;
 
