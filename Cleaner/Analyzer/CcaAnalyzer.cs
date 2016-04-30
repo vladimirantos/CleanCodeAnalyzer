@@ -9,7 +9,7 @@ using Cleaner.Entity;
 
 namespace Cleaner.Analyzer
 {
-    interface IAnalyzer
+    public interface IAnalyzer
     {
         List<ClassStatistics> ClassStatistics { get; }
         void Analyze();
