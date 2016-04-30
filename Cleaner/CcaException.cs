@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cleaner
 {
-    class CcaException : ApplicationException
+    public class CcaException : ApplicationException
     {
         public CcaException()
         {
