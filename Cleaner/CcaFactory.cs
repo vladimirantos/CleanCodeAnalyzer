@@ -21,7 +21,7 @@ namespace Cleaner
 
         public void Calibrate() => Parse().Analyze().Calibration();
 
-        public void Compare() => Parse().Analyze().Compare();
+        public void Compare() => Parse().Analyze().Comparator();
 
         private CcaFactory Parse()
         {
