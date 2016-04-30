@@ -51,12 +51,12 @@ namespace Cleaner.Utils
     internal sealed class ConfigurationReader
     {
         private readonly string _path;
-        public Dictionary<string, int> Config { get; private set; }
+        private readonly Dictionary<string, int> _configData;
 
         public ConfigurationReader(string path)
         {
             _path = path;
-            Config = Parse();
+            _configData = Parse();
         }
 
         /// <summary>
@@ -64,11 +64,8 @@ namespace Cleaner.Utils
         /// </summary>
         public int? Get(string key)
         {
-            foreach (var keyValuePair in Config)
-            {
-                if (keyValuePair.Key == key.ToUpper())
-                    return keyValuePair.Value;
-            }
+            if (_configData.ContainsKey(key))
+                return _configData[key];
             return null;
         }
 
