@@ -51,12 +51,12 @@ namespace Cleaner.Utils
     internal sealed class ConfigurationReader
     {
         private readonly string _path;
-        private readonly List<KeyValuePair<string, string>> _config;
+        public Dictionary<string, int> Config { get; private set; }
 
         public ConfigurationReader(string path)
         {
             _path = path;
-            _config = Parse();
+            Config = Parse();
         }
 
         /// <summary>
@@ -64,10 +64,10 @@ namespace Cleaner.Utils
         /// </summary>
         public int? Get(string key)
         {
-            foreach (var keyValuePair in _config)
+            foreach (var keyValuePair in Config)
             {
                 if (keyValuePair.Key == key.ToUpper())
-                    return int.Parse(keyValuePair.Value);
+                    return keyValuePair.Value;
             }
             return null;
         }
@@ -82,16 +82,16 @@ namespace Cleaner.Utils
         /// Vytvoří seznam dvojic typu klíč-hodnota.
         /// </summary>
         /// <returns></returns>
-        private List<KeyValuePair<string, string>> Parse()
+        private Dictionary<string, int> Parse()
         {
-            List<KeyValuePair<string, string>> result = new List<KeyValuePair<string, string>>();
+            Dictionary<string, int> result = new Dictionary<string, int>();
             string[] lines = ReadLines();
             foreach (var line in lines)
             {
                 if (line != string.Empty)
                 {
                     string[] config = line.Split('=');
-                    result.Add(new KeyValuePair<string, string>(config[0], config[1]));
+                    result.Add(config[0], int.Parse(config[1]));
                 }
             }
             return result;
