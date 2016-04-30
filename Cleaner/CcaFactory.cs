@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,23 +10,25 @@ using Cleaner.Calibration;
 using Cleaner.Comparator;
 using Cleaner.Entity;
 using Cleaner.Parser;
+using Cleaner.Utils;
 
 namespace Cleaner
 {
-    public class CcaFactory : CcaBase
+    public class CcaFactory
     {
         public CcaProject Project { get; private set; }
         public List<ClassStatistics> Statistics { get; private set; }
         public List<Result> Result { get; private set; }
-        public CcaFactory(string path) : base(path) { }
 
-        public void Calibrate() => Parse().Analyze().Calibration();
+        public void Calibrate(string path) => Parse(path).Analyze().Calibration();
 
-        public void Compare() => Parse().Analyze().Comparator();
+        public void Compare(string path) => Parse(path).Analyze().Comparator();
 
-        private CcaFactory Parse()
+        public Dictionary<string, int> GetCalibrationData() => new ConfigurationReader(Config.CalibrationDataPath).ConfigData;
+
+        private CcaFactory Parse(string path)
         {
-            ICcaParser parser = new CcaParser(Files);
+            ICcaParser parser = new CcaParser(GetFiles(path));
             Project = parser.Parse();
             return this;
         }
@@ -53,5 +56,7 @@ namespace Cleaner
             Result = comparator.Results;
             return this;
         }
+
+        private List<FileInfo> GetFiles(string path) => FileUtils.GetAllFiles(path, Config.FilePattern, Config.ForbiddenDirs);
     }
 }

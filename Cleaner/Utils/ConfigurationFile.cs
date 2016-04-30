@@ -52,12 +52,12 @@ namespace Cleaner.Utils
     internal sealed class ConfigurationReader
     {
         private readonly string _path;
-        private readonly Dictionary<string, int> _configData;
+        public Dictionary<string, int> ConfigData { get; }
 
         public ConfigurationReader(string path)
         {
             _path = path;
-            _configData = Parse();
+            ConfigData = Parse();
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace Cleaner.Utils
         /// </summary>
         public int? Get(string key)
         {
-            if (_configData.ContainsKey(key))
-                return _configData[key];
+            if (ConfigData.ContainsKey(key))
+                return ConfigData[key];
             throw new ArgumentException($"Key {key} not contains in configuration file.");
         }
 
