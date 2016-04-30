@@ -9,7 +9,7 @@ namespace Cleaner.Analyzer.Statistics
 {
     public class VariableStatistics : BaseStatistic
     {
-        public ClassVariable Variable { get; set; }
+        public Field Variable { get; set; }
 
     }
 }
