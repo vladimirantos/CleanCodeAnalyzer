@@ -25,16 +25,16 @@ namespace Cleaner.Analyzer.Tools
             => !name.Contains(dataType) && IsLowerCamelCase(name);
 
         public static bool IsCorrectPropertyName(string name, string dataType)
-            => !name.Contains(dataType) && IsUpperCamelCase(name);
+            => !name.Contains(dataType) && IsUpperCamelCase(name) && !name.Contains("_");
 
         /// <summary>
         /// Kontroluje, jestli název neobsahuje nějaké klíčové slovo.
         /// </summary>
         private static bool ContainsKeyword(string name) => _keywords.Any(x => name.ToLower().Contains(x));
 
-        private static bool IsUpperCamelCase(string name) => Regex.IsMatch(name, CamelCaseFirstUpper) && !name.Contains("_");
+        private static bool IsUpperCamelCase(string name) => Regex.IsMatch(name, CamelCaseFirstUpper);
 
-        private static bool IsLowerCamelCase(string name) => Regex.IsMatch(name, CamelCaseFirstLower) && !name.Contains("_");
+        private static bool IsLowerCamelCase(string name) => Regex.IsMatch(name, CamelCaseFirstLower);
         //char.IsUpper(name[0]) && name.ToCharArray().Skip(1).Select(char.IsLower).Count() == name.Length - 1;
     }
 }
