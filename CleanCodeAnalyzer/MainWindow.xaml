@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CleanCodeAnalyzer"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="CleanCodeAnalyzer" Height="500" Width="1000" Icon="Resource/icon.ico" 
+        Title="CleanCodeAnalyzer" Height="650" Width="1130" Icon="Resource/icon.ico" 
         BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
@@ -15,9 +15,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button Cursor="Hand" Name="githubButton" Click="GithubButton_Click">
+            <Button Cursor="Hand" Name="GithubButton" Click="GithubButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="15"
                    Height="15"
@@ -27,6 +28,19 @@
                         </Rectangle.OpacityMask>
                     </Rectangle>
                     <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Github" />
+                </StackPanel>
+            </Button>
+
+            <Button Cursor="Hand" Name="AboutButton" Click="GithubButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="10"
+                   Height="10"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_question}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="O aplikaci" />
                 </StackPanel>
             </Button>
         </controls:WindowCommands>
@@ -41,27 +55,136 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="66"/>
             <RowDefinition Height="341*"/>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Width="286" Height="27" Margin="0,19,0,19.6">
-            <Button Name="loadProjectButton" HorizontalAlignment="Left" VerticalAlignment="Center" Height="27" Width="110" Margin="10 0 0 0" Cursor="Hand" BorderThickness="0" Click="LoadProjectButton_Click">Nahrát projekt</Button>
-            <Button Name="loadCalibrationData" HorizontalAlignment="Left" VerticalAlignment="Center" Height="27" Width="110" Margin="10 0 0 0" Cursor="Hand" BorderThickness="0" Click="LoadCalibrationData_Click">Kalibrace</Button>
+            <Button Name="LoadProjectButton" HorizontalAlignment="Left" VerticalAlignment="Center" Height="27" Width="110" Margin="10 0 0 0" Cursor="Hand" BorderThickness="0" Click="LoadProjectButton_Click">Nahrát projekt</Button>
+            <Button Name="LoadCalibrationData" HorizontalAlignment="Left" VerticalAlignment="Center" Height="27" Width="110" Margin="10 0 0 0" Cursor="Hand" BorderThickness="0" Click="LoadCalibrationData_Click">Kalibrace</Button>
         </StackPanel>
-        
-        <Button Name="startButton" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
+
+        <Button Name="StartButton" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
                 FontWeight="Bold" Width="85" Height="28" Foreground="Green" Cursor="Hand" BorderThickness="0" Click="StartButton_Click">Spustit!</Button>
-        
+
         <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Button Name="ShowGraphButton" HorizontalAlignment="Right" VerticalAlignment="Center" 
                 FontWeight="Bold" Width="110" Height="27" Margin="0 0 10 0" Cursor="Hand" BorderThickness="0" Click="CalibrationDataButton_Click">Zobrazit graf</Button>
-            <Button Name="calibrationDataButton" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" 
+            <Button Name="CalibrationDataButton" HorizontalAlignment="Right" VerticalAlignment="Center" 
                 FontWeight="Bold" Width="110" Height="27" Margin="0 0 10 0" Cursor="Hand" BorderThickness="0" Click="CalibrationDataButton_Click">Kalibrační data</Button>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding People}" AutoGenerateColumns="False">
-            
+        <DataGrid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" AutoGenerateColumns="False" Name="DataGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding ClassName}" Header="Třída" IsReadOnly="True" Width="100"/>
+
+                    <DataGridTextColumn Binding="{Binding Names}">
+                    <DataGridColumn.Header>
+                        <GridViewColumnHeader>
+                            <TextBlock TextAlignment="Center">Názvy<LineBreak/>délka / správnost</TextBlock>
+                        </GridViewColumnHeader>
+                    </DataGridColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding CodeLines}">
+                    <DataGridColumn.Header>
+                        <GridViewColumnHeader>
+                            <TextBlock TextAlignment="Center">Délka kódu<LineBreak/>počet řádků</TextBlock>
+                        </GridViewColumnHeader>
+                    </DataGridColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding CommentLines}">
+                    <DataGridColumn.Header>
+                        <GridViewColumnHeader>
+                            <TextBlock TextAlignment="Center">Délka kódu<LineBreak/>Komentáře</TextBlock>
+                        </GridViewColumnHeader>
+                    </DataGridColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding WhitespaceLines}">
+                    <DataGridColumn.Header>
+                        <GridViewColumnHeader>
+                            <TextBlock TextAlignment="Center">Délka kódu<LineBreak/>prázdné řádky</TextBlock>
+                        </GridViewColumnHeader>
+                    </DataGridColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding PropertiesVariables}">
+                    <DataGridColumn.Header>
+                        <GridViewColumnHeader>
+                            <TextBlock TextAlignment="Center">Počet<LineBreak/>proměnných / vlastností</TextBlock>
+                        </GridViewColumnHeader>
+                    </DataGridColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding MethodsArgs}">
+                    <DataGridColumn.Header>
+                        <GridViewColumnHeader>
+                            <TextBlock TextAlignment="Center">Počet<LineBreak/>metod/argumentů</TextBlock>
+                        </GridViewColumnHeader>
+                    </DataGridColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding SimilarityMethods}">
+                    <DataGridColumn.Header>
+                        <GridViewColumnHeader>
+                            <TextBlock TextAlignment="Center">Počet<LineBreak/>podobných metod</TextBlock>
+                        </GridViewColumnHeader>
+                    </DataGridColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding CyclomaticComplx}">
+                    <DataGridColumn.Header>
+                        <GridViewColumnHeader>
+                            <TextBlock TextAlignment="Center">Cyklomatická<LineBreak/>složitost</TextBlock>
+                        </GridViewColumnHeader>
+                    </DataGridColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+
         </DataGrid>
+
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Name="StatusBar" FontSize="12" Foreground="DarkGray"></TextBlock>
 
     </Grid>
 </controls:MetroWindow>

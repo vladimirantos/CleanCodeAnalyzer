@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Cleaner;
+using Cleaner.Comparator;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -31,8 +32,13 @@ namespace CleanCodeAnalyzer
         public MainWindow()
         {
             InitializeComponent();
-            startButton.IsEnabled = false;
+            StartButton.IsEnabled = false;
             ShowGraphButton.IsEnabled = false;
+            if (!_ccaFactory.CalibrationDataExists())
+            {
+                StatusBar.Text = "Chybí kalibrační data";
+                CalibrationDataButton.IsEnabled = false;
+            }
         }
 
         private void GithubButton_Click(object sender, RoutedEventArgs e) => Process.Start("https://github.com/vladimirantos/CleanCodeAnalyzer");
@@ -51,9 +57,10 @@ namespace CleanCodeAnalyzer
             {
                 _path = folderSelectorDialog.FileName;
                 _isCalibration = false;
-                loadCalibrationData.IsEnabled = false;
+                LoadCalibrationData.IsEnabled = false;
+                StatusBar.Text = "Byl vložen projekt " + _path;
             }
-            startButton.IsEnabled = true;
+            StartButton.IsEnabled = true;
         }
 
         private void LoadCalibrationData_Click(object sender, RoutedEventArgs e)
@@ -70,40 +77,51 @@ namespace CleanCodeAnalyzer
             {
                 _path = folderSelectorDialog.FileName;
                 _isCalibration = true;
-                loadProjectButton.IsEnabled = false;
+                LoadProjectButton.IsEnabled = false;
+                StatusBar.Text = "Byl vložen kalibrační projekt " + _path;
             }
-            startButton.IsEnabled = true;
+            StartButton.IsEnabled = true;
         }
 
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            loadProjectButton.IsEnabled = true;
-            loadCalibrationData.IsEnabled = true;
-            startButton.IsEnabled = false;
+            LoadProjectButton.IsEnabled = true;
+            LoadCalibrationData.IsEnabled = true;
+            StartButton.IsEnabled = false;
             ProgressDialogController progress;
             try
             {
                 if (_isCalibration)
                 {
                     progress = await this.ShowProgressAsync("Probíhá kalibrace", "Chvilku to potrvá...");
-                    progress.SetIndeterminate(); //Infinite
+                    progress.SetIndeterminate();
                     await Task.Run(() => _ccaFactory.Calibrate(_path));
                     await progress.CloseAsync();
                     await this.ShowMessageAsync("Hotovo", "Kalibrace dokončena, můžete nahrát projekt...");
+                    StatusBar.Text = "Kalibrace byla dokončena. Nahrajte projekt k analýze";
+                    CalibrationDataButton.IsEnabled = true;
                 }
                 else
                 {
                     progress = await this.ShowProgressAsync("Probíhá analýza", "Chvilku to potrvá...");
-                    progress.SetIndeterminate(); //Infinite
-                    await Task.Run(() => _ccaFactory.Calibrate(_path));
+                    progress.SetIndeterminate();
+                    await Task.Run(() => _ccaFactory.Analyze(_path));
                     await progress.CloseAsync();
                     await this.ShowMessageAsync("Hotovo", "Analýza dokončena...");
+                    ShowTable(_ccaFactory.Result);
+                    StatusBar.Text = "Analýza byla dokončena";
+                    System.Windows.MessageBox.Show(_ccaFactory.Result.Count.ToString());
                 }
             }
-            catch
+            catch (CcaException ex)
             {
-                await this.ShowMessageAsync("Chyba!", "Pozor, došlo k neočekávané chybě");
+                await this.ShowMessageAsync("Chyba!", ex.Message);
             }
+            //catch(Exception)
+            //{
+            //   await this.ShowMessageAsync("Chyba!", "Došlo k neočekávané chybě...");
+            //}
+            
         }
 
         private void CalibrationDataButton_Click(object sender, RoutedEventArgs e)
@@ -120,6 +138,12 @@ namespace CleanCodeAnalyzer
         private async void MessageBox(string title, string message)
         {
             await this.ShowMessageAsync(title, message);
+        }
+
+        private void ShowTable(List<Result> result)
+        {
+            DataGridBinder binder = new DataGridBinder(result);
+            DataGrid.ItemsSource = binder.GetData();
         }
     }
 }
