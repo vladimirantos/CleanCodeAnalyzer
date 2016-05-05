@@ -18,7 +18,7 @@ namespace Cleaner
     {
         public CcaProject Project { get; private set; }
         public List<ClassStatistics> Statistics { get; private set; }
-        public List<Result> Result { get; private set; }
+        public List<CcaResult> Result { get; private set; }
 
         public void Calibrate(string path) => Parse(path).Analyze().Calibration();
 

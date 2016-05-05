@@ -7,11 +7,11 @@ using Cleaner.Entity;
 
 namespace Cleaner
 {
-    class CcaResult
+    public class CcaResult
     {
         public CcaClass Class { get; private set; }
 
-        public List<Errors> Errors { get; set; } = new List<Errors>();
+        public Errors Errors { get; } = new Errors();
 
         public CcaResult(CcaClass @class)
         {
@@ -19,7 +19,7 @@ namespace Cleaner
         }
     }
 
-    class Errors
+    public class Errors
     {
         public int NamesLength { get; set; }
         public int CorrectNames { get; set; }
