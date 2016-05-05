@@ -27,7 +27,7 @@ namespace CleanCodeAnalyzer
     public partial class MainWindow : MetroWindow
     {
         private string _path;
-        private CcaFactory _ccaFactory = new CcaFactory();
+        private readonly CcaFactory _ccaFactory = new CcaFactory();
         private bool _isCalibration = false;
         public MainWindow()
         {
@@ -110,7 +110,7 @@ namespace CleanCodeAnalyzer
                     await this.ShowMessageAsync("Hotovo", "Analýza dokončena...");
                     ShowTable(_ccaFactory.Result);
                     StatusBar.Text = "Analýza byla dokončena";
-                    System.Windows.MessageBox.Show(_ccaFactory.Result.Count.ToString());
+                    ShowGraphButton.IsEnabled = true;
                 }
             }
             catch (CcaException ex)
@@ -140,10 +140,16 @@ namespace CleanCodeAnalyzer
             await this.ShowMessageAsync(title, message);
         }
 
-        private void ShowTable(List<Result> result)
+        private void ShowTable(List<CcaResult> result)
         {
             DataGridBinder binder = new DataGridBinder(result);
             DataGrid.ItemsSource = binder.GetData();
+        }
+
+        private void ShowGraphButton_Click(object sender, RoutedEventArgs e)
+        {
+            ToxicityGraph tg = new ToxicityGraph(_ccaFactory.Result);
+            tg.Show();
         }
     }
 }

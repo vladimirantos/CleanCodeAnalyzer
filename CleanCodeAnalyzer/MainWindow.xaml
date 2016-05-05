@@ -68,7 +68,7 @@
 
         <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Button Name="ShowGraphButton" HorizontalAlignment="Right" VerticalAlignment="Center" 
-                FontWeight="Bold" Width="110" Height="27" Margin="0 0 10 0" Cursor="Hand" BorderThickness="0" Click="CalibrationDataButton_Click">Zobrazit graf</Button>
+                FontWeight="Bold" Width="110" Height="27" Margin="0 0 10 0" Cursor="Hand" BorderThickness="0" Click="ShowGraphButton_Click">Zobrazit graf</Button>
             <Button Name="CalibrationDataButton" HorizontalAlignment="Right" VerticalAlignment="Center" 
                 FontWeight="Bold" Width="110" Height="27" Margin="0 0 10 0" Cursor="Hand" BorderThickness="0" Click="CalibrationDataButton_Click">Kalibrační data</Button>
         </StackPanel>
