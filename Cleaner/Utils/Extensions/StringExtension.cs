@@ -34,11 +34,11 @@ namespace Cleaner.Utils.Extensions
         /// <summary>
         /// Vrací pole řádků vzniklých ze zadaného textu.
         /// </summary>
-        public static string[] Lines(this string text) => text.Split('\n');
+        public static string[] Lines(this string text) => text?.Split('\n');
 
         /// <summary>
         /// Vrací počet řádků v textu.
         /// </summary>
-        public static int CountLines(this string text) => Lines(text).Length;
+        public static int CountLines(this string text) => Lines(text) != null ? Lines(text).Length : 0;
     }
 }

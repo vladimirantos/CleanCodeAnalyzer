@@ -12,11 +12,18 @@ namespace Cleaner.Analyzer.Statistics
         public int CommentsCount { get; }
         public int WhitespaceCount { get; }
 
+        public static CodeLengthStatistics Empty { get; } = new CodeLengthStatistics();
+
         public CodeLengthStatistics(int length, int commentsCount, int whitespaceCount)
         {
             Length = length;
             CommentsCount = commentsCount;
             WhitespaceCount = whitespaceCount;
+        }
+
+        private CodeLengthStatistics() : this(0, 0, 0)
+        {
+            
         }
     }
 }
