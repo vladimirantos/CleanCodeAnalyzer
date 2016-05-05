@@ -30,7 +30,7 @@ namespace Cleaner.Analyzer
                 CountMethods = _class.Methods.Count,
                 CodeLength = (CodeLengthStatistics)CodeLength.Analyze(_class.Content),
                 SimilarityMethods = (int)SimilarityMethods.Analyze(_class.Methods),
-                MethodStatistics = MethodStatistics(_class.Methods, _class),
+                MethodStatistics = MethodStatistics(_class.Methods),
                 PropertyStatistics = PropertyStatistics(_class.Properties),
                 VariableStatistics = VariableStatistics(_class.Variables)
             };
@@ -38,12 +38,11 @@ namespace Cleaner.Analyzer
             return statistics;
         }
 
-        private List<MethodStatistic> MethodStatistics(List<CcaMethod> methods, CcaClass _class)
+        private List<MethodStatistic> MethodStatistics(List<CcaMethod> methods)
         {
             List<MethodStatistic> result = new List<MethodStatistic>();
             methods.ForEach(method =>
             {
-                var c = _class;
                 result.Add(new MethodStatistic()
                 {
                     Method = method,
