@@ -34,7 +34,8 @@ namespace Cleaner.Analyzer.Tools
             _code = code;
         }
 
-        public BaseStatistic Analyze() => new CodeLengthStatistics(CountLines, CountCommentLines, CountWhitespaceLines);
+        public BaseStatistic Analyze() => _code != null 
+            ? new CodeLengthStatistics(CountLines, CountCommentLines, CountWhitespaceLines) : CodeLengthStatistics.Empty;
 
         public static BaseStatistic Analyze(string code) => new CodeLength(code).Analyze();
     }
