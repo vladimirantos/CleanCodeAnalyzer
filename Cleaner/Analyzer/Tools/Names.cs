@@ -22,7 +22,7 @@ namespace Cleaner.Analyzer.Tools
         public static bool IsCorrect(string name) => !ContainsKeyword(name) && IsUpperCamelCase(name);//char.IsUpper(name[0]);
 
         public static bool IsCorrectVariableName(string name, string dataType)
-            => !name.Contains(dataType) && IsLowerCamelCase(name);
+            => !name.Contains(dataType) && IsLowerCamelCase(name) && !name.Contains("_");
 
         public static bool IsCorrectPropertyName(string name, string dataType)
             => !name.Contains(dataType) && IsUpperCamelCase(name) && !name.Contains("_");
