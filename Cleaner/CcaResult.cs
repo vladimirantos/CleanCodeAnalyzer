@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cleaner.Entity;
+using Cleaner.Utils.Extensions;
 
 namespace Cleaner
 {
-    public class CcaResult
+    public class CcaResult : IComparable<Errors>
     {
         public CcaClass Class { get; private set; }
 
@@ -16,6 +18,14 @@ namespace Cleaner
         public CcaResult(CcaClass @class)
         {
             Class = @class;
+        }
+
+        public int CompareTo(Errors other)
+        {
+            int thisPropertiesSum = Errors.Sum();
+            int thatPropertiesSum = other.Sum();
+            
+            return thisPropertiesSum.CompareTo(thatPropertiesSum);
         }
     }
 
@@ -33,6 +43,8 @@ namespace Cleaner
         public int SimilarityMethods { get; set; }
         public int CountArgs { get; set; }
         public int CyclomaticComplx { get; set; }
-    }
 
+        public int Sum() => this.ToDictionary().Values.Sum();
+    }
+    
 }

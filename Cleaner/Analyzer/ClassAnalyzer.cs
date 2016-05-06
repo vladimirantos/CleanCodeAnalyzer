@@ -49,7 +49,8 @@ namespace Cleaner.Analyzer
                     NameLength = method.Name.Length,
                     IsCorrectName = Names.IsCorrect(method.Name),
                     CodeLength = (CodeLengthStatistics)CodeLength.Analyze(method.Body?.ToString()),
-                    CountArguments = method.Arguments.Count
+                    CountArguments = method.Arguments.Count,
+                    CyclomaticComplexity = CyclomaticComplexity.Analyze(method.Source)
                 });
             });
             return result;

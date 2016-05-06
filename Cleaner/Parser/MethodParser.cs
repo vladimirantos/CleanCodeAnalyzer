@@ -32,6 +32,7 @@ namespace Cleaner.Parser
                 {
                     ReturnType = methodDeclaration.ReturnType.ToString(),
                     Body = methodDeclaration.Body,
+                    Source = methodDeclaration.ToFullString(),
                     Arguments = methodDeclaration.ParameterList.Parameters.Select(
                                   parameterSyntax => new CcaVariable(parameterSyntax.Identifier.ToString(), parameterSyntax.Type.ToString())
                                 ).Cast<IVariable>().ToList()
