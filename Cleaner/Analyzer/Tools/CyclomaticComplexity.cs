@@ -18,29 +18,28 @@ namespace Cleaner.Analyzer.Tools
             _content = content;
         }
 
-        public static int Analyze(string content)
-        {
-            return content != null ? new CyclomaticComplexity(content).Analyze() : 0;
-        }
+        public static int Analyze(string content) => content != null ? new CyclomaticComplexity(content).Analyze() : 0;
 
         public int Analyze()
         {
             var tree = CreateTree(_content);
-            var model = Compile(tree).GetSemanticModel(tree, true);
+            var model = Compile(tree)?.GetSemanticModel(tree, true);
             var syntaxNode = tree
                 .GetRoot()
                 .DescendantNodes()
                 .OfType<MethodDeclarationSyntax>()
                 .First();
-            return Analyze(syntaxNode, model);
+            return CalculateCyclomatic(syntaxNode, model);
         }
 
-        private int Analyze(SyntaxNode node, SemanticModel semanticModel) => new CyclomaticCalculator(node, semanticModel).Calculate();
+        private int CalculateCyclomatic(SyntaxNode node, SemanticModel semanticModel) => new CyclomaticCalculator(node, semanticModel).Calculate();
 
         private SyntaxTree CreateTree(string code) => CSharpSyntaxTree.ParseText(code);
 
         private CSharpCompilation Compile(SyntaxTree tree)
         {
+            if (tree == null)
+                return null;
             return CSharpCompilation.Create(
                 "x",
                 syntaxTrees: new[] { tree },

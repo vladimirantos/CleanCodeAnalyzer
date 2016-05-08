@@ -21,7 +21,7 @@ namespace Cleaner.Entity
         public List<IVariable> Arguments { get; set; }
         public bool? IsStatic => Modifiers?.Any(x => x.Equals(MethodModifiers.Static));
         public BlockSyntax Body { get; set; }
-
+        public string Source { get; set; }
         public CcaMethod(AccessModifiers modifiers, List<MethodModifiers> methodModifiers, string name, List<IVariable> arguments)
         {
             AccessModifier = modifiers;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace Cleaner.Parser
                     Body = methodDeclaration.Body,
                     Source = methodDeclaration.ToFullString(),
                     Arguments = methodDeclaration.ParameterList.Parameters.Select(
-                                  parameterSyntax => new CcaVariable(parameterSyntax.Identifier.ToString(), parameterSyntax.Type.ToString())
+                                  parameterSyntax => new CcaVariable(parameterSyntax?.Identifier.ToString(), parameterSyntax?.Type?.ToString())
                                 ).Cast<IVariable>().ToList()
                 };
             }

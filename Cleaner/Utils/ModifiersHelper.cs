@@ -31,12 +31,17 @@ namespace Cleaner.Utils
         public static bool IsFieldModifier(string value) => EnumHelper.IsEnumItem<FieldModifiers>(value);
 
         /// <summary>
+        /// Kontroluje, jestli je parametr value modifikátorem vlastnosti
+        /// </summary>
+        public static bool IsPropertyModifier(string value) => EnumHelper.IsEnumItem<PropertyModifiers>(value);
+
+        /// <summary>
         /// Převede řetězec na modifikátor přístupu. Vyvolává výjimku ArgumentException.
         /// Nutno předtím ověřit, jestli je hodnota členem výčtového typu.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static AccessModifiers AccessModifier(string value) => value.ToEnum<AccessModifiers>();
+        public static AccessModifiers AccessModifier(string value, string message = null) => (AccessModifiers)Enum.Parse(typeof(AccessModifiers), value, true);
 
         /// <summary>
         /// Převede řetězec na modifikátor třídy. Vyvolává výjimku ArgumentException. 
@@ -44,13 +49,13 @@ namespace Cleaner.Utils
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static ClassModifiers ClassModifier(string value) => value.ToEnum<ClassModifiers>();
+        public static ClassModifiers ClassModifier(string value) => (ClassModifiers)Enum.Parse(typeof(ClassModifiers), value, true);
 
         /// <summary>
         /// Převede řetězec na modifikátor vlastnosti. Vyvolává výjimku ArgumentException. 
         /// Nutno předtím ověřit, jestli je hodnota členem výčtového typu.
         /// </summary>
-        public static PropertyModifiers PropertyModifier(string value) => value.ToEnum<PropertyModifiers>();
+        public static PropertyModifiers PropertyModifier(string value) => (PropertyModifiers)Enum.Parse(typeof(PropertyModifiers), value, true);
 
         /// <summary>
         /// Převede řetězec na modifikátor metody. Vyvolává výjimku ArgumentException. 
@@ -58,7 +63,7 @@ namespace Cleaner.Utils
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static MethodModifiers MethodModifier(string value) => value.ToEnum<MethodModifiers>();
+        public static MethodModifiers MethodModifier(string value) => (MethodModifiers)Enum.Parse(typeof(MethodModifiers), value, true);
 
         /// <summary>
         /// Převede řetězec na modifikátor třídní proměnné. Vyvolává výjimku ArgumentException. 
@@ -66,7 +71,7 @@ namespace Cleaner.Utils
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static FieldModifiers FieldModifier(string value) => value.ToEnum<FieldModifiers>();
+        public static FieldModifiers FieldModifier(string value) => (FieldModifiers)Enum.Parse(typeof(FieldModifiers), value, true);
 
     }
 }

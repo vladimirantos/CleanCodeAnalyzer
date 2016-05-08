@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 using Cleaner.Entity;
 using Cleaner.Utils;
 using Microsoft.CodeAnalysis;
@@ -13,7 +16,6 @@ namespace Cleaner.Parser
     internal class PropertyParser : IParser<IEnumerable<CcaProperty>>
     {
         private readonly List<PropertyDeclarationSyntax> _syntax;
-
         public PropertyParser(List<PropertyDeclarationSyntax> syntax)
         {
             _syntax = syntax;
@@ -30,7 +32,7 @@ namespace Cleaner.Parser
                     Modifiers = (from m in propertyDeclaration.Modifiers
                                  where m.ToString().ToUpper() != accessModifier.ToString().ToUpper()
                                  select m)
-                            .ToList().ConvertAll(x => ModifiersHelper.PropertyModifier(x.ToString())),
+                            .ToList().ConvertAll(x => (PropertyModifiers)Enum.Parse(typeof(PropertyModifiers), x.ToString(), true)),
                     Content = _syntax.ToString()
                 };
             }

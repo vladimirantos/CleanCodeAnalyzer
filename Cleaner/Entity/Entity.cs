@@ -15,22 +15,22 @@ namespace Cleaner.Entity
 
     public enum ClassModifiers
     {
-        None, Abstract, Sealed, Static
+        None, Abstract, Sealed, Static, Internal
     }
 
     public enum PropertyModifiers
     {
-        Virtual, Static, New, Override, Abstract
+        None, Virtual, Static, New, Override, Abstract, Sealed, Unsafe, Internal, Protected
     }
 
     public enum FieldModifiers
     {
-        None, Static, Readonly, Const, Event, New, Volatile
+        None, Static, Readonly, Const, Event, New, Volatile, Internal
     }
 
     public enum MethodModifiers
     {
-        None, Abstract, Virtual, Sealed, Async, Extern, Override, Static
+        None, Abstract, Virtual, Sealed, Async, Extern, Override, Static, Unsafe, Internal
     }
 
     /// <summary>

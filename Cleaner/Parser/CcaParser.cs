@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Cleaner.Entity;
 using Cleaner.Utils;
+using Cleaner.Utils.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -55,7 +56,9 @@ namespace Cleaner.Parser
             classDeclarationList.ForEach(classDeclaration =>
             {
                 CcaClass ccaClass = CreateClass(fileInfo.Directory.Name, fileInfo.Name, classDeclaration);
-                ccaClass.Namespace = nodes.OfType<NamespaceDeclarationSyntax>().First().Name.ToString();
+                var namespaceDeclarations = nodes.OfType<NamespaceDeclarationSyntax>();
+                if(!namespaceDeclarations.IsEmpty())
+                    ccaClass.Namespace = namespaceDeclarations.First().Name.ToString();
                 ccaClass.Content = classDeclaration.ToString();
                 classes.Add(ccaClass);
                 Parsing(fileInfo.Name, ccaClass);
