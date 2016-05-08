@@ -52,7 +52,7 @@ namespace Cleaner.Utils
     internal sealed class ConfigurationReader
     {
         private readonly string _path;
-        public Dictionary<string, int> ConfigData { get; }
+        public Dictionary<string, float> ConfigData { get; }
 
         public ConfigurationReader(string path)
         {
@@ -63,7 +63,7 @@ namespace Cleaner.Utils
         /// <summary>
         /// Vrací hodnotu k zadanému klíči. Pokud klíč není nalezen metoda vrací null.
         /// </summary>
-        public int? Get(string key)
+        public float? Get(string key)
         {
             if (ConfigData.ContainsKey(key))
                 return ConfigData[key];
@@ -80,9 +80,9 @@ namespace Cleaner.Utils
         /// Vytvoří seznam dvojic typu klíč-hodnota.
         /// </summary>
         /// <returns></returns>
-        private Dictionary<string, int> Parse()
+        private Dictionary<string, float> Parse()
         {
-            Dictionary<string, int> result = new Dictionary<string, int>();
+            Dictionary<string, float> result = new Dictionary<string, float>();
             string[] lines = ReadLines();
             if(lines.IsEmpty())
                 throw new InvalidOperationException("There are no calibration data.");
@@ -91,7 +91,7 @@ namespace Cleaner.Utils
                 if (line != string.Empty)
                 {
                     string[] config = line.Split('=');
-                    result.Add(config[0], int.Parse(config[1]));
+                    result.Add(config[0], float.Parse(config[1]));
                 }
             }
             return result;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,7 @@ namespace CleanCodeAnalyzer
                 StatusBar.Text = "Chybí kalibrační data";
                 CalibrationDataButton.IsEnabled = false;
             }
+            ShowGraphButton.IsEnabled = true;
         }
 
         private void GithubButton_Click(object sender, RoutedEventArgs e) => Process.Start("https://github.com/vladimirantos/CleanCodeAnalyzer");
@@ -126,7 +128,7 @@ namespace CleanCodeAnalyzer
 
         private void CalibrationDataButton_Click(object sender, RoutedEventArgs e)
         {
-            Dictionary<string, int> data = _ccaFactory.GetCalibrationData();
+            Dictionary<string, float> data = _ccaFactory.GetCalibrationData();
             StringBuilder sb = new StringBuilder();
             foreach (var kvp in data)
             {
@@ -140,9 +142,9 @@ namespace CleanCodeAnalyzer
             await this.ShowMessageAsync(title, message);
         }
 
-        private void ShowTable(List<CcaResult> result)
+        private void ShowTable(List<CcaResult> results)
         {
-            DataGridBinder binder = new DataGridBinder(result);
+            DataGridBinder binder = new DataGridBinder(results);
             DataGrid.ItemsSource = binder.GetData();
         }
 

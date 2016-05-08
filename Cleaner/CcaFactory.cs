@@ -24,7 +24,7 @@ namespace Cleaner
 
         public void Analyze(string path) => Parse(path).Analyze().Comparator();
 
-        public Dictionary<string, int> GetCalibrationData() => new ConfigurationReader(Config.CalibrationDataPath).ConfigData;
+        public Dictionary<string, float> GetCalibrationData() => new ConfigurationReader(Config.CalibrationDataPath).ConfigData;
 
         public bool CalibrationDataExists() => File.Exists(Config.CalibrationDataPath);
 
