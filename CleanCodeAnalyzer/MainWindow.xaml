@@ -77,10 +77,23 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding ClassName}" Header="Třída" IsReadOnly="True" Width="100"/>
 
-                    <DataGridTextColumn Binding="{Binding Names}">
+                <DataGridTextColumn Binding="{Binding CyclomaticComplx}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Názvy<LineBreak/>délka / správnost</TextBlock>
+                            <TextBlock TextAlignment="Center">Cyklomatická<LineBreak/>složitost</TextBlock>
+                        </GridViewColumnHeader>
+                    </DataGridColumn.Header>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Names}">
+                    <DataGridColumn.Header>
+                        <GridViewColumnHeader>
+                            <TextBlock TextAlignment="Center">Názvy<LineBreak/>Délka / Správnost</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>
@@ -93,7 +106,7 @@
                 <DataGridTextColumn Binding="{Binding CodeLines}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Délka kódu<LineBreak/>počet řádků</TextBlock>
+                            <TextBlock TextAlignment="Center">Délka kódu<LineBreak/>Počet řádků</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>
@@ -119,7 +132,7 @@
                 <DataGridTextColumn Binding="{Binding WhitespaceLines}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Délka kódu<LineBreak/>prázdné řádky</TextBlock>
+                            <TextBlock TextAlignment="Center">Délka kódu<LineBreak/>Prázdné řádky</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>
@@ -132,7 +145,7 @@
                 <DataGridTextColumn Binding="{Binding PropertiesVariables}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Počet<LineBreak/>proměnných / vlastností</TextBlock>
+                            <TextBlock TextAlignment="Center">Počet<LineBreak/>Proměnných / Vlastností</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>
@@ -145,7 +158,7 @@
                 <DataGridTextColumn Binding="{Binding MethodsArgs}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Počet<LineBreak/>metod/argumentů</TextBlock>
+                            <TextBlock TextAlignment="Center">Počet<LineBreak/>Metod / Argumentů</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>
@@ -159,19 +172,6 @@
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
                             <TextBlock TextAlignment="Center">Počet<LineBreak/>podobných metod</TextBlock>
-                        </GridViewColumnHeader>
-                    </DataGridColumn.Header>
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-
-                <DataGridTextColumn Binding="{Binding CyclomaticComplx}">
-                    <DataGridColumn.Header>
-                        <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Cyklomatická<LineBreak/>složitost</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>

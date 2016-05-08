@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,31 +21,30 @@ namespace CleanCodeAnalyzer
 {
     public partial class ToxicityGraph : Window
     {
-        private List<CcaResult> _results;
+        ObservableCollection<ChartSeries> Bars = new ObservableCollection<ChartSeries>();
         public ToxicityGraph(List<CcaResult> results)
         {
+         
             InitializeComponent();
-            //foreach (var result in results)
-            //{
-            //    ChartSeries series = new ChartSeries();
-            //    series.DisplayMember = result.Class.Header.Name;
-            //    series.ValueMember = "number";
-            //    Graph.Series.Add(series);
-            //}
-            //var x = new GraphViewModel(results);
-            X cwe = new X();
-            cwe.Xy++;
-            MessageBox.Show(cwe.ToString());
+            
+            ObservableCollection<TestClass> blocks = new ObservableCollection<TestClass>()
+            {
+                new TestClass() {Category = "C1", Number = 155},
+                new TestClass() {Category = "C2", Number = 98}
+            };
+            ChartSeries chartSerie = new ChartSeries();
+            chartSerie.DisplayMember = "Category";
+            chartSerie.ValueMember = "Number";
+            chartSerie.ItemsSource = blocks;
+            Bars.Add(chartSerie);
+            Chart.Series = Bars;
         }
     }
-
-    class X
+    public class TestClass
     {
-        public int Xy { get; set; } = 0;
+        public string Category { get; set; }
 
-        public override string ToString()
-        {
-            return Xy.ToString();
-        }
+        public int Number { get; set; }
     }
+
 }

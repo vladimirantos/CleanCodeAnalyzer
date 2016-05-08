@@ -14,33 +14,33 @@ namespace CleanCodeAnalyzer
 
         public DataGridBinder(List<CcaResult> results)
         {
-            _data = results;
+            _data = results.OrderByDescending(x => x.Errors.Sum()).ToList();
         }
 
         public List<object> GetData()
         {
             List<object> result = new List<object>();
-            //foreach (var d in _data)
-            //{
-            //    result.Add(new
-            //    {
-            //        ClassName = d.Class.Header.Name,
-            //        Names = $"{d.Errors["NAME_LENGTH"]} / {d.Errors["CORRECT_NAMES"]}",
-            //        NameLength = d.Errors["NAME_LENGTH"],
-            //        CorrectNames = d.Errors["CORRECT_NAMES"],
-            //        CodeLines = d.Errors["CODE_LINES"],
-            //        CommentLines = d.Errors["COMMENTS_LINES"],
-            //        WhitespaceLines = d.Errors["WHITESPACE_LINES"],
-            //        PropertiesVariables = $"{d.Errors["COUNT_VARIABLES"]} / {d.Errors["COUNT_PROPERTIES"]}",
-            //        Variables = d.Errors["COUNT_VARIABLES"],
-            //        Properties = d.Errors["COUNT_PROPERTIES"],
-            //        MethodsArgs = $"{d.Errors["COUNT_METHODS"]} / {d.Errors["COUNT_ARGS"]}",
-            //        CountMethods = d.Errors["COUNT_METHODS"],
-            //        SimilarityMethods = d.Errors["SIMILARITY_METHODS"],
-            //        CountArgs = d.Errors["COUNT_ARGS"],
-            //        CyclomaticComplx = d.Errors["CYCLOMATIC_COMPLX"]
-            //    });
-            //}
+            foreach (var d in _data)
+            {
+                result.Add(new
+                {
+                    ClassName = d.Class.Header.Name,
+                    Names = $"{d.Errors.NamesLength} / {d.Errors.CorrectNames}",
+                    NameLength = d.Errors.NamesLength,
+                    CorrectNames = d.Errors.CorrectNames,
+                    CodeLines = d.Errors.CodeLines,
+                    CommentLines = d.Errors.CommentLines,
+                    WhitespaceLines = d.Errors.WhitespaceLines,
+                    PropertiesVariables = $"{d.Errors.CountVariables} / {d.Errors.CountProperties}",
+                    Variables = d.Errors.CountVariables,
+                    Properties = d.Errors.CountProperties,
+                    MethodsArgs = $"{d.Errors.CountMethods} / {d.Errors.CountArgs}",
+                    CountMethods = d.Errors.CountMethods,
+                    SimilarityMethods = d.Errors.SimilarityMethods,
+                    CountArgs = d.Errors.CountArgs,
+                    CyclomaticComplx = d.Errors.CyclomaticComplx
+                });
+            }
             return result;
         }
     }
