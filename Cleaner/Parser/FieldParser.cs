@@ -20,6 +20,9 @@ namespace Cleaner.Parser
             _variableDeclarationList = variableDeclarationList;
         }
 
+        /// <summary>
+        /// Vrací seznam datových členů třídy.
+        /// </summary>
         public IEnumerable<Field> Parse()
         {
             List<FieldModifiers> modifiers = new List<FieldModifiers>();
@@ -35,10 +38,6 @@ namespace Cleaner.Parser
                     Modifiers = modifiers,
                     Content = variableDeclaration.ToString()
                 };
-                //yield return new Field(AccessModifiers.None, variableDeclaration.Type.ToString(), GetName(variableDeclaration.Variables.ToString()))
-                //{
-                //    Content = variableDeclaration.ToString()
-                //};
             }
         }
 

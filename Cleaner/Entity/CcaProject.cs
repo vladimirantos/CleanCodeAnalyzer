@@ -21,7 +21,6 @@ namespace Cleaner.Entity
         public CcaProject(List<CcaFile> files)
         {
             Files = files;
-            //todo: zjistit nazev projektu - kontrola jestli se hlavni namespace jmenuje jako projekt
         }
 
         public CcaProject()

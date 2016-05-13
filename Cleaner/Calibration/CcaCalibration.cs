@@ -9,6 +9,9 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cleaner.Calibration
 {
+    /// <summary>
+    /// Provádí výpočet kalibračních dat. Ukládá do souboru průměrné hodnoty metrik.
+    /// </summary>
     internal class CcaCalibration : BaseCalibration<ClassStatistics>
     {
         public CcaCalibration() : base(new ConfigurationWriter()) { }

@@ -8,6 +8,9 @@ using Cleaner.Utils.Extensions;
 
 namespace Cleaner.Utils
 {
+    /// <summary>
+    /// Usnadňuje práci s modifikátory.
+    /// </summary>
     internal static class ModifiersHelper
     {
         /// <summary>

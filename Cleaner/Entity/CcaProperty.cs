@@ -39,9 +39,6 @@ namespace Cleaner.Entity
         {
         }
 
-        public override string ToString()
-        {
-            return $"{AccessModifier} {Modifiers.Join()} {DataType} {Name}";
-        }
+        public override string ToString() => $"{AccessModifier} {Modifiers.Join()} {DataType} {Name}";
     }
 }

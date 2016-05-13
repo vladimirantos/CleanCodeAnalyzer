@@ -8,7 +8,7 @@ using Cleaner.Utils;
 
 namespace Cleaner.Calibration
 {
-    class MethodCalibration : BaseCalibration<MethodStatistic>
+    internal class MethodCalibration : BaseCalibration<MethodStatistic>
     {
         public MethodCalibration(ConfigurationWriter writer) : base(writer) { }
 

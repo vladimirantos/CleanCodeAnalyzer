@@ -16,13 +16,17 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace Cleaner.Parser
 {
     public delegate void OnParsingHandler(object sender, ParseEvent e);
+
+    /// <summary>
+    /// Hlavní rozhraní parseru. Každý parser musí implementovat toto rozhraní.
+    /// </summary>
     public interface ICcaParser
     {
         event OnParsingHandler OnParsing;
         CcaProject Parse();
     }
 
-    public class CcaParser : BaseParser, ICcaParser
+    public sealed class CcaParser : BaseParser, ICcaParser
     {
         public event OnParsingHandler OnParsing;
         private readonly List<FileInfo> _files;
@@ -87,7 +91,7 @@ namespace Cleaner.Parser
 
         private List<CcaMethod> GetMethods(List<MethodDeclarationSyntax> syntax) => MethodParser(syntax).Parse().ToList();
 
-        protected virtual void Parsing(string file, CcaClass @class)
+        private void Parsing(string file, CcaClass @class)
         {
             if(OnParsing != null)
                 OnParsing(this, new ParseEvent(file, @class));

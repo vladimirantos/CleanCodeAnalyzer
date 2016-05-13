@@ -40,6 +40,9 @@ namespace Cleaner.Entity
 
         public override bool Equals(object obj) => Equals(obj as CcaMethod);
 
+        /// <summary>
+        /// Porovnává metody na základě jejich argumentů. Porovnává datové typy argumentů.
+        /// </summary>
         public bool Equals(CcaMethod method)
         {
             foreach (var argument in Arguments)

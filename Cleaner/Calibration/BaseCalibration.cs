@@ -8,7 +8,7 @@ using Cleaner.Utils;
 
 namespace Cleaner.Calibration
 {
-    public interface ICalibration<in T> where T : BaseStatistic
+    internal interface ICalibration<in T> where T : BaseStatistic
     {
         /// <summary>
         /// Provádí výpočet průměrných hodnot nad metrikou T.

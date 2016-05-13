@@ -46,15 +46,9 @@ namespace Cleaner.Entity
             
         }
 
-        public override string ToString()
-        {
-            return Namespace != null ? $"{Namespace}.{Header}" : Header.ToString();
-        }
+        public override string ToString() => Namespace != null ? $"{Namespace}.{Header}" : Header.ToString();
 
-        public string ToFullString()
-        {
-            return $"{Namespace} {Header.ToFullString()}";
-        }
+        public string ToFullString() => $"{Namespace} {Header.ToFullString()}";
     }
 
     public class ClassHeader : IClassElement
@@ -85,19 +79,8 @@ namespace Cleaner.Entity
         {
         }
 
-        public ClassHeader()
-        {
-            //todo: odstranit
-        }
+        public override string ToString() => Name;
 
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        public string ToFullString()
-        {
-            return $"{AccessModifier} {ClassModifiers.Join()} {Name} : {BaseClasses.Join()}";
-        }
+        public string ToFullString() => $"{AccessModifier} {ClassModifiers.Join()} {Name} : {BaseClasses.Join()}";
     }
 }

@@ -14,7 +14,7 @@ namespace CleanCodeAnalyzer
 
         public DataGridBinder(List<CcaResult> results)
         {
-            _data = results.OrderByDescending(x => x.Errors.Sum()).ToList();
+            _data = results.OrderByDescending(x => x.Errors.Score()).ToList();
         }
 
         public List<object> GetData()

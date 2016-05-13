@@ -9,12 +9,19 @@ using Cleaner.Entity;
 
 namespace Cleaner.Analyzer
 {
+    /// <summary>
+    /// Veřejné rozhraní analyzátoru. 
+    /// </summary>
     public interface IAnalyzer
     {
         List<ClassStatistics> ClassStatistics { get; }
         void Analyze();
     }
-    class CcaAnalyzer : IAnalyzer
+
+    /// <summary>
+    /// Provádí výpočet metrik pro daný projekt.
+    /// </summary>
+    internal class CcaAnalyzer : IAnalyzer
     {
         private readonly CcaProject _project;
         private ClassAnalyzer _classAnalyzer;

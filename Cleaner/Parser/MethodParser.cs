@@ -20,6 +20,9 @@ namespace Cleaner.Parser
             _syntax = syntax;
         }
 
+        /// <summary>
+        /// Vrací seznam metod ve třídě.
+        /// </summary>
         public IEnumerable<CcaMethod> Parse()
         {
             List<MethodModifiers> modifiers = new List<MethodModifiers>();
@@ -35,7 +38,8 @@ namespace Cleaner.Parser
                     Body = methodDeclaration.Body,
                     Source = methodDeclaration.ToFullString(),
                     Arguments = methodDeclaration.ParameterList.Parameters.Select(
-                                  parameterSyntax => new CcaVariable(parameterSyntax?.Identifier.ToString(), parameterSyntax?.Type?.ToString())
+                                  parameterSyntax => 
+                                  new CcaVariable(parameterSyntax?.Identifier.ToString(), parameterSyntax?.Type?.ToString())
                                 ).Cast<IVariable>().ToList()
                 };
             }

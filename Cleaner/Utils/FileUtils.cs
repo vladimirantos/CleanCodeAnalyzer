@@ -8,8 +8,18 @@ using System.Threading.Tasks;
 
 namespace Cleaner.Utils
 {
-    public static class FileUtils
+    /// <summary>
+    /// Třída pro práci se soubory.
+    /// </summary>
+    internal static class FileUtils
     {
+        /// <summary>
+        /// Vrací seznam souborů v zadaném adresáři.
+        /// </summary>
+        /// <param name="path">Cesta k adresáři</param>
+        /// <param name="filePattern">Filtr pro soubory. Určuje jaký typ souborů bude vrácen.</param>
+        /// <param name="forbiddenDir">Podsložky v tomto seznamu nebudou prohledávány.</param>
+        /// <returns></returns>
         public static List<FileInfo> GetAllFiles(string path, string filePattern, List<string> forbiddenDir)
         {
             List<FileInfo> result = new List<FileInfo>();

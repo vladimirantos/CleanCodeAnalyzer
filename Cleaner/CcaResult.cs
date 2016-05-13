@@ -9,6 +9,9 @@ using Cleaner.Utils.Extensions;
 
 namespace Cleaner
 {
+    /// <summary>
+    /// Obsahuje výsledek analýzy pro třídu.
+    /// </summary>
     public class CcaResult : IComparable<Errors>
     {
         public CcaClass Class { get; private set; }
@@ -22,13 +25,16 @@ namespace Cleaner
 
         public int CompareTo(Errors other)
         {
-            int thisPropertiesSum = Errors.Sum();
-            int thatPropertiesSum = other.Sum();
+            int thisPropertiesSum = Errors.Score();
+            int thatPropertiesSum = other.Score();
             
             return thisPropertiesSum.CompareTo(thatPropertiesSum);
         }
     }
 
+    /// <summary>
+    /// Obsahuje počet chyb pro všechny metriky.
+    /// </summary>
     public class Errors
     {
         public int NamesLength { get; set; }
@@ -36,7 +42,6 @@ namespace Cleaner
         public int CodeLines { get; set; }
         public int CommentLines { get; set; }
         public int WhitespaceLines { get; set; }
-        public int RealCodeLines => CodeLines - (CommentLines + WhitespaceLines);
         public int CountVariables { get; set; }
         public int CountProperties { get; set; }
         public int CountMethods { get; set; }
@@ -44,7 +49,15 @@ namespace Cleaner
         public int CountArgs { get; set; }
         public int CyclomaticComplx { get; set; }
 
-        public int Sum() => this.ToDictionary().Values.Sum();
+        /// <summary>
+        /// Počet řádků kódu bez prázdných znaků a komentářů.
+        /// </summary>
+        public int RealCodeLines => CodeLines - (CommentLines + WhitespaceLines);
+
+        /// <summary>
+        /// Součet všech chyb. Může být použit pro řazení podle chybovosti.
+        /// </summary>
+        public int Score() => this.ToDictionary().Values.Sum();
     }
     
 }

@@ -14,18 +14,36 @@ using Cleaner.Utils;
 
 namespace Cleaner
 {
+    /// <summary>
+    /// Vstupní třída do knihovny Cleaner.
+    /// </summary>
     public class CcaFactory
     {
         public CcaProject Project { get; private set; }
         public List<ClassStatistics> Statistics { get; private set; }
         public List<CcaResult> Result { get; private set; }
 
+        /// <summary>
+        /// Provádí analýzu vzorového kódu ze zadaného adresáře a vypočítá hodnoty kalibrace.
+        /// </summary>
+        /// <param name="path">Cesta ke zdrojovým souborům</param>
         public void Calibrate(string path) => Parse(path).Analyze().Calibration();
 
+        /// <summary>
+        /// Analyzuje zadaný kód a porovná jej s výsledky kalibrace.
+        /// </summary>
+        /// <param name="path">Cesta ke zdrojovým souborům</param>
         public void Analyze(string path) => Parse(path).Analyze().Comparator();
 
+        /// <summary>
+        /// Vrací seznam kalibračních dat. Klíčem je název metriky a hodnotou je průměrný počet.
+        /// </summary>
         public Dictionary<string, float> GetCalibrationData() => new ConfigurationReader(Config.CalibrationDataPath).ConfigData;
 
+        /// <summary>
+        /// Kontroluje, jestli jsou k dispozici kalibrační data.
+        /// </summary>
+        /// <returns></returns>
         public bool CalibrationDataExists() => File.Exists(Config.CalibrationDataPath);
 
         private CcaFactory Parse(string path)

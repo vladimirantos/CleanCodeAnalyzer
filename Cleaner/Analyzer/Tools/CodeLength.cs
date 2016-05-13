@@ -10,7 +10,7 @@ using Cleaner.Utils.Extensions;
 
 namespace Cleaner.Analyzer.Tools 
 {
-    internal class CodeLength : IAnalyzerHelper<BaseStatistic>
+    internal sealed class CodeLength : IAnalyzerHelper<BaseStatistic>
     {
         private readonly string _code;
 

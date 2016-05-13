@@ -26,7 +26,7 @@ namespace CleanCodeAnalyzer
         {
             //foreach (var result in results.Take(10))
             //{
-            //    _populations.Add(new Metrics() { Name = result.Class.Header.ToString(), Count = result.Errors.Values.Sum() });
+            //    _populations.Add(new Metrics() { Name = result.Class.Header.ToString(), Count = result.Errors.Values.Score() });
             //}
             
             //_populations.Add(new Metrics() { Name = "India", Count = 1220 });

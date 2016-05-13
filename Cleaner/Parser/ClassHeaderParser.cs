@@ -18,6 +18,9 @@ namespace Cleaner.Parser
             _syntax = syntax;
         }
 
+        /// <summary>
+        /// Získá všechny informace hlavičce třídy.
+        /// </summary>
         public ClassHeader Parse()
         {
             AccessModifiers accessModifier = AccessModifiers.None;

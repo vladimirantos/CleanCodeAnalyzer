@@ -12,6 +12,9 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cleaner.Parser
 { 
+    /// <summary>
+    /// Poskytuje pomocné metody pro parser.
+    /// </summary>
     public abstract class BaseParser
     {
         public abstract CcaProject Parse();

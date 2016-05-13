@@ -13,7 +13,7 @@ namespace Cleaner.Analyzer.Tools
     /// stejný počet argumentů a zároveň na stejných pozicích mají argumenty stejného datového typu. V případě, že obě metody
     /// mají 2/3 a více shodných parametrů, poté jsou podobné.
     /// </summary>
-    internal class SimilarityMethods : IAnalyzerHelper<int>
+    internal sealed class SimilarityMethods : IAnalyzerHelper<int>
     {
         private readonly List<CcaMethod> _methods;
 

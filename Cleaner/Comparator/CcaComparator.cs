@@ -16,12 +16,21 @@ namespace Cleaner.Comparator
         void Compare(List<ClassStatistics> statistics);
     }
 
-    class CcaComparator : IComparator
+    /// <summary>
+    /// Porovnává výsledky analýzy s kalibračními daty.
+    /// </summary>
+    internal class CcaComparator : IComparator
     {
         private readonly ConfigurationReader _configurationReader;
 
+        /// <summary>
+        /// Seznam výsledků. Obsahuje třídu a počet chyb jednotlivých metrik.
+        /// </summary>
         public List<CcaResult> Results { get; } = new List<CcaResult>();
-
+        
+        /// <param name="configurationDataPath">Cesta k souboru s kalibračními daty.</param>
+        /// <exception cref="InvalidOperationException">Pokud je soubor prázdný.</exception>
+        /// <exception cref="FileNotFoundException">Pokud soubor s kalibračními daty neexistuje.</exception>
         public CcaComparator(string configurationDataPath)
         {
             try

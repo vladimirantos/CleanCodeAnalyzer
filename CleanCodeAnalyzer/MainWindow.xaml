@@ -73,14 +73,20 @@
                 FontWeight="Bold" Width="110" Height="27" Margin="0 0 10 0" Cursor="Hand" BorderThickness="0" Click="CalibrationDataButton_Click">Kalibrační data</Button>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" AutoGenerateColumns="False" Name="DataGrid">
+        <DataGrid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" AutoGenerateColumns="False" Name="DataGrid" FontSize="16">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding ClassName}" Header="Třída" IsReadOnly="True" Width="100"/>
+                <DataGridTextColumn Binding="{Binding ClassName}" FontSize="12" IsReadOnly="True" Width="100">
+                    <DataGridColumn.Header>
+                        <GridViewColumnHeader>
+                            <TextBlock TextAlignment="Center" FontSize="12">Cyklomatická<LineBreak/>složitost</TextBlock>
+                        </GridViewColumnHeader>
+                    </DataGridColumn.Header>
+                    </DataGridTextColumn>
 
                 <DataGridTextColumn Binding="{Binding CyclomaticComplx}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Cyklomatická<LineBreak/>složitost</TextBlock>
+                            <TextBlock TextAlignment="Center" FontSize="12">Cyklomatická<LineBreak/>složitost</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>
@@ -93,7 +99,7 @@
                 <DataGridTextColumn Binding="{Binding Names}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Názvy<LineBreak/>Délka / Správnost</TextBlock>
+                            <TextBlock TextAlignment="Center" FontSize="12">Názvy<LineBreak/>Délka / Správnost</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>
@@ -106,7 +112,7 @@
                 <DataGridTextColumn Binding="{Binding CodeLines}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Délka kódu<LineBreak/>Počet řádků</TextBlock>
+                            <TextBlock TextAlignment="Center" FontSize="12">Délka kódu<LineBreak/>Počet řádků</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>
@@ -119,7 +125,7 @@
                 <DataGridTextColumn Binding="{Binding CommentLines}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Délka kódu<LineBreak/>Komentáře</TextBlock>
+                            <TextBlock TextAlignment="Center" FontSize="12">Délka kódu<LineBreak/>Komentáře</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>
@@ -132,7 +138,7 @@
                 <DataGridTextColumn Binding="{Binding WhitespaceLines}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Délka kódu<LineBreak/>Prázdné řádky</TextBlock>
+                            <TextBlock TextAlignment="Center" FontSize="12">Délka kódu<LineBreak/>Prázdné řádky</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>
@@ -145,7 +151,7 @@
                 <DataGridTextColumn Binding="{Binding PropertiesVariables}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Počet<LineBreak/>Proměnných / Vlastností</TextBlock>
+                            <TextBlock TextAlignment="Center" FontSize="12">Počet<LineBreak/>Proměnných / Vlastností</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>
@@ -158,7 +164,7 @@
                 <DataGridTextColumn Binding="{Binding MethodsArgs}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Počet<LineBreak/>Metod / Argumentů</TextBlock>
+                            <TextBlock TextAlignment="Center" FontSize="12">Počet<LineBreak/>Metod / Argumentů</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>
@@ -171,7 +177,7 @@
                 <DataGridTextColumn Binding="{Binding SimilarityMethods}">
                     <DataGridColumn.Header>
                         <GridViewColumnHeader>
-                            <TextBlock TextAlignment="Center">Počet<LineBreak/>podobných metod</TextBlock>
+                            <TextBlock TextAlignment="Center" FontSize="12">Počet<LineBreak/>podobných metod</TextBlock>
                         </GridViewColumnHeader>
                     </DataGridColumn.Header>
                     <DataGridTextColumn.ElementStyle>

@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Cleaner.Analyzer.Tools
 {
-    class CyclomaticComplexity : IAnalyzerHelper<int>
+    internal sealed class CyclomaticComplexity : IAnalyzerHelper<int>
     {
         private string _content;
 
@@ -48,7 +48,7 @@ namespace Cleaner.Analyzer.Tools
         }
     }
 
-    class CyclomaticCalculator : CSharpSyntaxWalker
+    internal sealed class CyclomaticCalculator : CSharpSyntaxWalker
     {
         private static readonly SyntaxKind[] Statements = new[]{SyntaxKind.CaseSwitchLabel, SyntaxKind.CoalesceExpression, SyntaxKind.ConditionalExpression,
                                                                 SyntaxKind.LogicalAndExpression, SyntaxKind.LogicalOrExpression, SyntaxKind.LogicalNotExpression};

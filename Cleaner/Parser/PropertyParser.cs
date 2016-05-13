@@ -16,11 +16,15 @@ namespace Cleaner.Parser
     internal class PropertyParser : IParser<IEnumerable<CcaProperty>>
     {
         private readonly List<PropertyDeclarationSyntax> _syntax;
+
         public PropertyParser(List<PropertyDeclarationSyntax> syntax)
         {
             _syntax = syntax;
         }
 
+        /// <summary>
+        /// Vrací seznam vlastností v dané třídě.
+        /// </summary>
         public IEnumerable<CcaProperty> Parse()
         {
             foreach (var propertyDeclaration in _syntax)
@@ -32,7 +36,8 @@ namespace Cleaner.Parser
                     Modifiers = (from m in propertyDeclaration.Modifiers
                                  where m.ToString().ToUpper() != accessModifier.ToString().ToUpper()
                                  select m)
-                            .ToList().ConvertAll(x => (PropertyModifiers)Enum.Parse(typeof(PropertyModifiers), x.ToString(), true)),
+                            .ToList()
+                            .ConvertAll(x => (PropertyModifiers)Enum.Parse(typeof(PropertyModifiers), x.ToString(), true)),
                     Content = _syntax.ToString()
                 };
             }
